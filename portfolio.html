@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hetarth Modi - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="portfolio.css" />
+</head>
+<body>
+  <div class="world" aria-hidden="true">
+    <div class="world-video" id="world-video">
+      <video
+        id="world-media"
+        src="https://videos.pexels.com/video-files/2169880/2169880-uhd_2560_1440_30fps.mp4"
+        poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+    </div>
+    <div class="world-gradient-x"></div>
+    <div class="world-gradient-y"></div>
+    <div class="world-vignette"></div>
+  </div>
+  <div class="grain"></div>
+
+  <header>
+    <nav aria-label="Sections">
+      <button type="button" data-go="0">Background</button>
+      <button type="button" data-go="1" class="is-active">Home</button>
+      <button type="button" data-go="2">Projects</button>
+      <button type="button" data-go="3">About</button>
+    </nav>
+  </header>
+
+  <button type="button" class="edu-back" id="edu-back">← Back</button>
+
+  <div class="scene" id="scene">
+    <div class="cube-rig">
+      <div class="cube" id="cube">
+        
+        <section class="face face-background" id="background" aria-label="Background">
+          <p class="kicker">Portfolio / 2026</p>
+          <h2>A little context.</h2>
+          <div class="about-grid">
+            <section class="edu">
+              <h3>Education</h3>
+              <ul>
+                <li>
+                  <h4>B.Sc. in Computer Science</h4>
+                  <p>IU International University of Applied Sciences</p>
+                  <p>April 2025 - March 2028</p>
+                  <button type="button" data-edu="b1">Read More →</button>
+                </li>
+                <li>
+                  <h4>Studienkolleg</h4>
+                  <p>IU International University of Applied Sciences</p>
+                  <p>April 2024 - March 2025</p>
+                  <button type="button" data-edu="b2">Read More →</button>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </section>
+
+        <section class="face face-edu" id="edu-detail" aria-label="Education detail">
+          <article class="edu-panel is-active" data-edu-panel="b1">
+            <p class="kicker">Education / B.Sc.</p>
+            <h3>B.Sc. in Computer Science.</h3>
+            <div class="about-grid">
+              <div>
+                <p>Undergraduate study at IU, focused on software, systems, and how products actually get built. This is the current chapter — still in progress.</p>
+                <p>The work here is the foundation for the pieces on Present: programming, structure, and shipping things people can use.</p>
+                <div class="subject-list">
+                  <div><b>Subject</b></div>
+                  <div><b>Subject</b></div>
+                  <div><b>Subject</b></div>
+                </div>
+              </div>
+              <div class="meta-list">
+                <div><b>School</b><span>IU International University</span></div>
+                <div><b>When</b><span>Apr 2025 — In progress</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="edu-panel" data-edu-panel="b2">
+            <p class="kicker">Education / Studienkolleg</p>
+            <h3>Studienkolleg.</h3>
+            <div class="about-grid">
+              <div>
+                <p>A foundation year before the degree: language, method, and the academic pace of studying in Germany. Finished in March 2025.</p>
+                <p>It is the run-up to the degree — the year that made the B.Sc. possible, not a side note.</p>
+                <div class="subject-list">
+                  <div><b>Subject</b></div>
+                  <div><b>Subject</b></div>
+                  <div><b>Subject</b></div>
+                </div>
+              </div>
+              <div class="meta-list">
+                <div><b>School</b><span>IU International University</span></div>
+                <div><b>When</b><span>Apr 2024 — Mar 2025</span></div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="face face-home" id="home" aria-label="Home">
+          <p class="kicker">Portfolio / 2026</p>
+          <h1>Welcome to ME.</h1>
+          <p class="lede">I am Hetarth Modi, a Computer Science student at IU International University of Applied Sciences.</p>
+        </section>
+
+        <section class="face face-projects" id="projects" aria-label="Projects">
+          <p class="kicker">Portfolio / 2026</p>
+          <h2>Recent Works.</h2>
+          <div class="work-grid">
+            <article class="project">
+              <div>
+                <div class="num">01</div>
+                <h3>Project title</h3>
+                <p>One sentence on the problem and what you shipped.</p>
+              </div>
+              <div class="tags">Branding · Website</div>
+            </article>
+            <article class="project">
+              <div>
+                <div class="num">02</div>
+                <h3>Project title</h3>
+                <p>One sentence on the problem and what you shipped.</p>
+              </div>
+              <div class="tags">Product · Motion</div>
+            </article>
+            <article class="project">
+              <div>
+                <div class="num">03</div>
+                <h3>Project title</h3>
+                <p>One sentence on the problem and what you shipped.</p>
+              </div>
+              <div class="tags">3D · Campaign</div>
+            </article>
+            <article class="project">
+              <div>
+                <div class="num">04</div>
+                <h3>Project title</h3>
+                <p>One sentence on the problem and what you shipped.</p>
+              </div>
+              <div class="tags">App · Design system</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="face face-about" id="about" aria-label="About">
+          <p class="kicker">About</p>
+          <h2>A little context.</h2>
+          <div class="about-grid">
+            <div>
+              <p>Use this face for your story. Two or three short paragraphs work better than a long bio. Mention where you are based, what you focus on, and the kind of teams or clients you enjoy.</p>
+              <p class="quote">“Make something people can feel from across the room.”</p>
+              <p>Swap the skills below for your own stack. Keep the list tight — eight to twelve items is plenty.</p>
+              <div class="skills">
+                <i>Art direction</i><i>UI design</i><i>Front-end</i><i>Motion</i>
+                <i>Brand</i><i>Figma</i><i>Three.js</i><i>React</i>
+              </div>
+            </div>
+            <div class="meta-list">
+              <div><b>Based in</b><span>Your city</span></div>
+              <div><b>Available</b><span>Freelance / full-time</span></div>
+              <div><b>Focus</b><span>Product & identity</span></div>
+              <div><b>Previously</b><span>Studio / Company</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="portfolio.js"></script>
+</body>
+</html>
