@@ -10,6 +10,9 @@ const eduPanels = [...document.querySelectorAll("[data-edu-panel]")];
 const projectBtns = [...document.querySelectorAll("[data-project]")];
 const projectPanels = [...document.querySelectorAll("[data-project-panel]")];
 const eduBack = document.getElementById("edu-back");
+const repoHit = document.getElementById("repo-hit");
+const linkedinHit = document.getElementById("linkedin-hit");
+const aboutGithubHit = document.getElementById("about-github-hit");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const DURATION = 1100;
 const START = 1;
@@ -92,12 +95,39 @@ function snapToHash() {
 function unlock() {
   scene.classList.remove("is-turning");
   if (!sideOpen) cube.classList.remove("is-showing-project");
+  syncNav();
+  schedulePlaceHits();
   busy = false;
   if (pendingGo !== null) {
     const next = pendingGo;
     pendingGo = null;
     goTo(next);
   }
+}
+
+let hitPlaceTimers = [];
+
+function placeHit(hit, src) {
+  if (!hit?.classList.contains("is-visible") || !src) return;
+  const box = src.getBoundingClientRect();
+  if (box.width < 8 && box.height < 8) return;
+  hit.style.top = `${box.top}px`;
+  hit.style.left = `${box.left}px`;
+  hit.style.width = `${box.width}px`;
+  hit.style.height = `${box.height}px`;
+}
+
+function placeExternalHits() {
+  placeHit(repoHit, document.querySelector(".face-project .project-panel.is-active .repo-line a"));
+  placeHit(linkedinHit, document.getElementById("about-linkedin"));
+  placeHit(aboutGithubHit, document.getElementById("about-github"));
+}
+
+function schedulePlaceHits() {
+  hitPlaceTimers.forEach((id) => window.clearTimeout(id));
+  hitPlaceTimers = [0, 32, 80, 160, 320, 500, 900].map((ms) => (
+    window.setTimeout(placeExternalHits, ms)
+  ));
 }
 
 function syncNav() {
@@ -111,6 +141,20 @@ function syncNav() {
   if (eduDetail) eduDetail.style.pointerEvents = sideOpen === "edu" ? "auto" : "none";
   if (projectDetail) projectDetail.style.pointerEvents = sideOpen === "project" ? "auto" : "none";
   if (eduBack) eduBack.classList.toggle("is-visible", Boolean(sideOpen));
+  if (repoHit) {
+    const charcoalOpen = sideOpen === "project" && !scene.classList.contains("is-turning") && activePanel(projectPanels, "dataset")?.projectPanel === "p1";
+    repoHit.classList.toggle("is-visible", charcoalOpen);
+  }
+  if (linkedinHit) {
+    const aboutOpen = !sideOpen && !scene.classList.contains("is-turning") && index === 3;
+    linkedinHit.classList.toggle("is-visible", aboutOpen);
+  }
+  if (aboutGithubHit) {
+    const aboutOpen = !sideOpen && !scene.classList.contains("is-turning") && index === 3;
+    aboutGithubHit.classList.toggle("is-visible", aboutOpen);
+  }
+  placeExternalHits();
+  if (!scene.classList.contains("is-turning")) schedulePlaceHits();
   writeHash();
 }
 
@@ -186,7 +230,10 @@ cube.offsetHeight;
 cube.style.transition = "";
 if (rig) rig.style.transition = "";
 
-window.addEventListener("resize", setHalf);
+window.addEventListener("resize", () => {
+  setHalf();
+  placeExternalHits();
+});
 goBtns.forEach((btn) => {
   btn.addEventListener("click", () => goTo(Number(btn.dataset.go)));
 });
@@ -196,7 +243,29 @@ eduBtns.forEach((btn) => {
 projectBtns.forEach((btn) => {
   btn.addEventListener("click", () => openProject(btn.dataset.project));
 });
+if (projectDetail) projectDetail.addEventListener("scroll", placeExternalHits, { passive: true });
+const aboutFace = document.getElementById("about");
+if (aboutFace) aboutFace.addEventListener("scroll", placeExternalHits, { passive: true });
+
 if (eduBack) eduBack.addEventListener("click", closeSide);
+
+function openExternal(event, el) {
+  if (!el) return;
+  event.preventDefault();
+  event.stopPropagation();
+  window.open(el.href, "_blank", "noopener,noreferrer");
+}
+
+if (repoHit) repoHit.addEventListener("click", (event) => openExternal(event, repoHit));
+if (linkedinHit) linkedinHit.addEventListener("click", (event) => openExternal(event, linkedinHit));
+if (aboutGithubHit) aboutGithubHit.addEventListener("click", (event) => openExternal(event, aboutGithubHit));
+
+["about-linkedin", "about-github"].forEach((id) => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener("click", (event) => openExternal(event, el));
+});
+const charcoalLink = document.querySelector(".face-project .repo-line a");
+if (charcoalLink) charcoalLink.addEventListener("click", (event) => openExternal(event, charcoalLink));
 
 cube.addEventListener("transitionend", (event) => {
   if (event.propertyName !== "transform" || event.target !== cube) return;

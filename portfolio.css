@@ -359,6 +359,42 @@ p {
   padding: 18px 0;
 }
 
+.repo-hit {
+  position: fixed;
+  z-index: 6;
+  display: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.repo-hit.is-visible {
+  display: block;
+}
+
+.text-link {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.repo-line .text-link {
+  margin: 0;
+  font-size: 20px;
+}
+
+.repo-line:hover .text-link,
+body:has(#repo-hit.is-visible:hover) .face-project .repo-line .text-link,
+body:has(#linkedin-hit.is-visible:hover) #about-linkedin,
+body:has(#about-github-hit.is-visible:hover) #about-github {
+  color: var(--fg);
+}
+
+.project-panel code {
+  font-size: 0.92em;
+  color: var(--accent-2);
+}
+
 .skills {
   display: flex;
   flex-wrap: wrap;

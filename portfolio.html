@@ -39,6 +39,10 @@
 
   <button type="button" class="edu-back" id="edu-back">← Back</button>
 
+  <a class="repo-hit" id="repo-hit" href="https://github.com/codeHetarth/Charcoal" target="_blank" rel="noopener noreferrer" aria-label="Open Charcoal on GitHub"></a>
+  <a class="repo-hit" id="linkedin-hit" href="https://www.linkedin.com/in/hetarth-modi-322444307/" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn"></a>
+  <a class="repo-hit" id="about-github-hit" href="https://github.com/codeHetarth" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub"></a>
+
   <div class="scene" id="scene">
     <div class="cube-rig">
       <div class="cube" id="cube">
@@ -134,7 +138,7 @@
         <section class="face face-home" id="home" aria-label="Home">
           <p class="kicker">Portfolio / 2026</p>
           <h1>Welcome to ME.</h1>
-          <p class="lede">I am Hetarth Modi, a Computer Science student at IU International University of Applied Sciences.</p>
+          <p class="lede">I am Hetarth Modi, a Tech & Management student at IU International University of Applied Sciences.</p>
         </section>
 
         <section class="face face-projects" id="projects" aria-label="Projects">
@@ -145,7 +149,7 @@
               <div>
                 <div class="num">01</div>
                 <h3>Charcoal</h3>
-                <p>Note taking Markdown Web Application</p>
+                <p>Note taking Markdown Web Application.</p>
               </div>
               <div class="tags">Tech · Web Application</div>
               <button type="button" data-project="p1">Read More →</button>
@@ -154,7 +158,7 @@
               <div>
                 <div class="num">02</div>
                 <h3>IT Service Management</h3>
-                <p>Introduction of ITIL based IT service processes in a Mid-Size Enterprise.</p>
+                <p>Introduction of ITIL based IT service processes in a mid-size enterprise.</p>
               </div>
               <div class="tags">Management · IT Service Management</div>
               <button type="button" data-project="p2">Read More →</button>
@@ -166,24 +170,45 @@
           <article class="project-panel is-active" data-project-panel="p1">
             <p class="kicker">Project / Tech</p>
             <h3>Charcoal.</h3>
+            <p class="repo-line"><a class="text-link" href="https://github.com/codeHetarth/Charcoal" rel="noopener noreferrer"> Github Repo ↗</a></p>
             <div class="about-grid">
               <div>
-                <p>Note taking Markdown Web Application.</p>
-                
+                <p>Built a full-stack, browser-based Markdown notes application as a university project at IU. Tasks, progress, and deadlines were planned and tracked in Monday.com.</p>
+                <p>GitHub Flavored Markdown covers headings, lists, tables, task lists, links, and syntax-highlighted code blocks. Titles and content auto-save as the user types. Registered users keep notes in PostgreSQL, tied to the account. Guest mode stores notes for the browser session only.</p>
+                <p>Accounts include registration, login, profile updates, logout, and deletion. Password reset uses time-limited email links, with optional email notifications. Export writes a local <code>.md</code> file and leaves it on the device. The layout is a notes sidebar on desktop and a drawer on mobile.</p>
+                <div class="subject-list">
+                  <div><b>Monday.com planning and deadlines</b></div>
+                  <div><b>GitHub Flavored Markdown</b></div>
+                  <div><b>Auto-save title and content</b></div>
+                  <div><b>PostgreSQL notes per account</b></div>
+                  <div><b>Guest session storage</b></div>
+                  <div><b>Auth, profile, and account deletion</b></div>
+                  <div><b>Password reset by email</b></div>
+                  <div><b>Local .md export</b></div>
+                  <div><b>Sidebar and mobile drawer</b></div>
+                </div>
               </div>
-              <div class="meta-list">
-                <div><b>School</b><span>IU International University</span></div>
-                <div><b>Connected Subject</b><span>Project: Java and Web Application</span></div>
-                <div><b>When</b><span>July 2026 — In progress</span></div>
-                <div><b>Frontend</b><span>HTML, CSS, JavaScript</span></div>
-                <div><b>Backend</b><span>Node.js, Express.js</span></div>
-                <div><b>Database</b><span>PostgreSQL</span></div>
-                <div><b>Server Management</b><span>Docker</span></div>
-                <div><b>API</b><span>REST API</span></div>
-                <div><b>Version Control</b><span>GitHub</span></div>
-                <div><b>Project Management</b><span>Monday.com</span></div>
-                <div><b>Code Editor</b><span>Cursor</span></div>
-                
+              <div>
+                <div class="meta-list">
+                  <div><b>School</b><span>IU International University</span></div>
+                  <div><b>Connected Subject</b><span>Project: Java and Web Application</span></div>
+                  <div><b>When</b><span>July 2026 — In progress</span></div>
+                  <div><b>Repo</b><span>github.com/codeHetarth/Charcoal</span></div>
+                  <div><b>Frontend</b><span>HTML, CSS, JavaScript, Milkdown</span></div>
+                  <div><b>Backend</b><span>Node.js, Express.js</span></div>
+                  <div><b>Database</b><span>PostgreSQL</span></div>
+                  <div><b>Server Management</b><span>Docker</span></div>
+                  <div><b>API</b><span>REST API</span></div>
+                  <div><b>Version Control</b><span>GitHub</span></div>
+                  <div><b>Project Management</b><span>Monday.com</span></div>
+                  <div><b>Code Editor</b><span>Cursor</span></div>
+                </div>
+                <div class="skills">
+                  <i>Project Management</i><i>Project Scheduling</i><i>HTML</i>
+                  <i>Cascading Style Sheets (CSS)</i><i>JavaScript</i><i>Node.js</i>
+                  <i>PostgreSQL</i><i>REST APIs</i><i>monday.com</i>
+                  <i>Web Application Development</i><i>Manual Testing</i>
+                </div>
               </div>
             </div>
           </article>
@@ -192,40 +217,57 @@
             <h3>IT Service Management.</h3>
             <div class="about-grid">
               <div>
-                <p>Introduction of ITIL based IT service processes in a Mid-Size Enterprise.</p>
+                <p>Designed an ITIL 4-based service management solution for a mid-sized enterprise with IT operational inefficiencies. The roadmap outsources the IT Service Desk along the ITIL 4 Customer Journey: Explore, Engage, Offer, Agree, Onboard, Co-create, Realise.</p>
+                <p>Stakeholder analysis covers the Board of Directors, Internal IT Team, External CIO, consultants, and outsourced service providers. SLA considerations and a governance model sit between internal IT and the vendor. Communication workflows, escalation, and responsibilities are defined for both sides.</p>
+                <p>Mandatory practices include Incident Management, Problem Management, Service Desk, Change Enablement, Information Security, and Continual Improvement. A risk, challenge, and opportunity assessment closes the work — aimed at service quality, governance, and customer satisfaction.</p>
                 <div class="subject-list">
-                  <div><b>Subject</b></div>
-                  <div><b>Subject</b></div>
-                  <div><b>Subject</b></div>
+                  <div><b>ITIL 4 Customer Journey</b></div>
+                  <div><b>Stakeholder analysis</b></div>
+                  <div><b>SLA and service governance</b></div>
+                  <div><b>Incident, problem, service desk</b></div>
+                  <div><b>Change enablement and security</b></div>
+                  <div><b>Continual improvement</b></div>
+                  <div><b>Escalation and communication</b></div>
+                  <div><b>Risk, challenge, opportunity</b></div>
                 </div>
               </div>
-              <div class="meta-list">
-                <div><b>School</b><span>IU International University</span></div>
-                <div><b>Connected Subject</b><span>Project: IT Service Management</span></div>
-                <div><b>When</b><span>April 2026 — June 2026</span></div>
+              <div>
+                <div class="meta-list">
+                  <div><b>School</b><span>IU International University</span></div>
+                  <div><b>Connected Subject</b><span>Project: IT Service Management</span></div>
+                  <div><b>When</b><span>April 2026 — July 2026</span></div>
+                </div>
+                <div class="skills">
+                  <i>Project Scheduling</i><i>ITIL</i><i>IT Service Management</i>
+                  <i>Service-Level Agreements (SLA)</i><i>Microsoft Office</i>
+                  <i>Quality Management</i><i>Incident Management</i>
+                  <i>Project Management</i><i>Risk Management</i>
+                  <i>Change Management</i><i>Service Desk Management</i>
+                  <i>Stakeholder Analysis</i><i>Teamwork</i>
+                </div>
               </div>
             </div>
           </article>
         </section>
 
         <section class="face face-about" id="about" aria-label="About">
-          <p class="kicker">About</p>
+          <p class="kicker">About Me / 2026</p>
           <h2>Who Am I ?</h2>
           <div class="about-grid">
             <div>
-              <p>Use this face for your story. Two or three short paragraphs work better than a long bio. Mention where you are based, what you focus on, and the kind of teams or clients you enjoy.</p>
-              <p class="quote">“Make something people can feel from across the room.”</p>
-              <p>Swap the skills below for your own stack. Keep the list tight — eight to twelve items is plenty.</p>
+              <h3>I am Hetarth Modi.</h3>
+              <p class="repo-line"><a id="about-linkedin" class="text-link" href="https://www.linkedin.com/in/hetarth-modi-322444307/" rel="noopener noreferrer">LinkedIn ↗</a></p>
+              <p class="repo-line"><a id="about-github" class="text-link" href="https://github.com/codeHetarth" rel="noopener noreferrer">GitHub ↗</a></p>
+              <p class="quote">“If you can not buy it, build it.”</p>
+              <p>Stack so far used for this portfolio is the one used on Charcoal and the ITSM project — web and service design, not a studio pitch list.</p>
               <div class="skills">
-                <i>Art direction</i><i>UI design</i><i>Front-end</i><i>Motion</i>
-                <i>Brand</i><i>Figma</i><i>Three.js</i><i>React</i>
+                <i>HTML</i><i>CSS</i><i>JavaScript</i><i>Project Management</i><i>GitHub</i>
               </div>
             </div>
             <div class="meta-list">
-              <div><b>Based in</b><span>Your city</span></div>
-              <div><b>Available</b><span>Freelance / full-time</span></div>
-              <div><b>Focus</b><span>Product & identity</span></div>
-              <div><b>Previously</b><span>Studio / Company</span></div>
+              <div><b>School</b><span>IU International University</span></div>
+              <div><b>Study</b><span>B.Sc. Computer Science</span></div>
+              <div><b>Focus</b><span>Tech &amp; Management</span></div>
             </div>
           </div>
         </section>
