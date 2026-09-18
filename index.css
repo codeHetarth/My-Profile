@@ -156,8 +156,8 @@ nav button.is-active::before {
   transition: transform var(--duration) var(--ease);
 }
 
-.cube-x { transform: rotateX(var(--rx, 90deg)); }
-.cube { transform: rotateY(var(--ry, 0deg)); }
+.cube-x { transform: rotateX(var(--rx, 90deg)) translate3d(0, 0, 0.1px); }
+.cube { transform: rotateY(var(--ry, 0deg)) translate3d(0, 0, 0.1px); }
 
 .face {
   position: absolute;
