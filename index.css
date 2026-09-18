@@ -495,7 +495,13 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
   .edu-back { top: 36px; left: calc(var(--nav-w) + 12px); }
   .about-grid { grid-template-columns: 1fr; gap: 28px; }
   .work-grid { gap: 28px; }
-  h1 { font-size: 64px; }
+  h1 {
+    font-size: clamp(42px, 11vw, 56px);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    max-width: none;
+  }
+  .face-home .h1-rest { display: block; }
 }
 
 @media (max-width: 720px) {
