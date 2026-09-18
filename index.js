@@ -165,8 +165,8 @@ function syncNav() {
 }
 
 function resetFaceScroll() {
-  const face = currentFace();
-  if (face) face.scrollTop = 0;
+  const scroller = currentFace()?.querySelector(".face-scroll");
+  if (scroller) scroller.scrollTop = 0;
 }
 
 function turnCube() {
@@ -255,9 +255,23 @@ eduBtns.forEach((btn) => {
 projectBtns.forEach((btn) => {
   btn.addEventListener("click", () => openProject(btn.dataset.project));
 });
-if (projectDetail) projectDetail.addEventListener("scroll", placeExternalHits, { passive: true });
-const aboutFace = document.getElementById("about");
-if (aboutFace) aboutFace.addEventListener("scroll", placeExternalHits, { passive: true });
+document.querySelectorAll(".face-scroll").forEach((scroller) => {
+  let startY = 0;
+  let startTop = 0;
+  scroller.addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 1) return;
+    startY = event.touches[0].clientY;
+    startTop = scroller.scrollTop;
+  }, { passive: true });
+  scroller.addEventListener("touchmove", (event) => {
+    if (event.touches.length !== 1) return;
+    const max = scroller.scrollHeight - scroller.clientHeight;
+    if (max <= 0) return;
+    event.preventDefault();
+    scroller.scrollTop = Math.max(0, Math.min(max, startTop + (startY - event.touches[0].clientY)));
+  }, { passive: false });
+  scroller.addEventListener("scroll", placeExternalHits, { passive: true });
+});
 
 if (eduBack) eduBack.addEventListener("click", closeSide);
 

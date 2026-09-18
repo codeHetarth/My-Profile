@@ -182,9 +182,19 @@ nav button.is-active::before {
   inset: 0;
   background: linear-gradient(180deg, rgba(7, 16, 24, 0.22), rgba(7, 16, 24, 0.58));
   backface-visibility: hidden;
-  overflow: auto;
-  padding: 64px 8vw 64px calc(var(--nav-w) + 28px);
+  overflow: hidden;
   border: 1px solid rgba(244, 239, 230, 0.04);
+}
+
+.face-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 64px 8vw 64px calc(var(--nav-w) + 28px);
 }
 
 .face-home {
@@ -331,8 +341,8 @@ p {
 
 .edu-back:hover { color: var(--fg); }
 
-.face-edu,
-.face-project {
+.face-edu .face-scroll,
+.face-project .face-scroll {
   padding-top: 108px;
 }
 
@@ -478,9 +488,10 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
   header { padding: 24px 12px; }
   nav { gap: 16px; }
   nav button { font-size: 10px; letter-spacing: 0.12em; padding-left: 12px; }
-  .face { padding: 36px 22px 36px calc(var(--nav-w) + 12px); }
-  .face-edu,
-  .face-project { padding-top: 72px; }
+  .face { padding: 0; }
+  .face-scroll { padding: 36px 22px 36px calc(var(--nav-w) + 12px); }
+  .face-edu .face-scroll,
+  .face-project .face-scroll { padding-top: 72px; }
   .edu-back { top: 36px; left: calc(var(--nav-w) + 12px); }
   .about-grid { grid-template-columns: 1fr; gap: 28px; }
   .work-grid { gap: 28px; }
@@ -531,15 +542,12 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
     transform: translateX(-50%);
   }
 
-  .face {
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+  .face-scroll {
     padding: calc(64px + env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom));
   }
 
-  .face-edu,
-  .face-project {
+  .face-edu .face-scroll,
+  .face-project .face-scroll {
     padding-top: calc(104px + env(safe-area-inset-top));
   }
 
