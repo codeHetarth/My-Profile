@@ -28,7 +28,6 @@ function isPhone() {
 
 function syncPhone() {
   document.documentElement.classList.toggle("is-phone", isPhone());
-  if (scene) scene.classList.toggle("is-sheet-open", isPhone() && Boolean(sideOpen));
 }
 
 function setHalf() {
@@ -67,15 +66,14 @@ function parseHash() {
 function applySide(side, id) {
   sideOpen = side;
   ry = 0;
-  scene.classList.remove("is-edu-open", "is-project-open", "is-sheet-open");
+  scene.classList.remove("is-edu-open", "is-project-open");
   cube.classList.remove("is-showing-project");
 
   if (side === "edu") {
     eduPanels.forEach((panel) => {
       panel.classList.toggle("is-active", panel.dataset.eduPanel === id);
     });
-    if (isPhone()) scene.classList.add("is-sheet-open");
-    else {
+    if (!isPhone()) {
       ry = -90;
       scene.classList.add("is-edu-open");
     }
@@ -85,8 +83,7 @@ function applySide(side, id) {
     projectPanels.forEach((panel) => {
       panel.classList.toggle("is-active", panel.dataset.projectPanel === id);
     });
-    if (isPhone()) scene.classList.add("is-sheet-open");
-    else {
+    if (!isPhone()) {
       ry = 90;
       cube.classList.add("is-showing-project");
       scene.classList.add("is-project-open");
@@ -147,10 +144,10 @@ function resetFaceScroll() {
 function turnCube() {
   resetFaceScroll();
   if (isPhone()) ry = 0;
+  cube.style.setProperty("--rx", `${rx}deg`);
+  cube.style.setProperty("--ry", `${ry}deg`);
 
-  if (reduced) {
-    cube.style.setProperty("--rx", `${rx}deg`);
-    cube.style.setProperty("--ry", `${ry}deg`);
+  if (isPhone() || reduced) {
     scene.classList.remove("is-turning");
     syncNav();
     unlock();
@@ -158,13 +155,7 @@ function turnCube() {
   }
 
   busy = true;
-  if (isPhone()) {
-    pauseCubeMotion(() => scene.classList.add("is-turning"));
-  } else {
-    scene.classList.add("is-turning");
-  }
-  cube.style.setProperty("--rx", `${rx}deg`);
-  cube.style.setProperty("--ry", `${ry}deg`);
+  scene.classList.add("is-turning");
   syncNav();
   window.clearTimeout(unlockTimer);
   unlockTimer = window.setTimeout(unlock, DURATION);
@@ -181,17 +172,15 @@ function pauseCubeMotion(fn) {
 }
 
 function openSheet() {
-  pauseCubeMotion(() => scene.classList.add("is-sheet-open"));
   resetFaceScroll();
   syncNav();
 }
 
 function closeSheet() {
-  pauseCubeMotion(() => {
-    scene.classList.remove("is-sheet-open", "is-edu-open", "is-project-open");
-    cube.classList.remove("is-showing-project");
-    cube.style.setProperty("--ry", "0deg");
-  });
+  scene.classList.remove("is-edu-open", "is-project-open");
+  cube.classList.remove("is-showing-project");
+  cube.style.setProperty("--ry", "0deg");
+  resetFaceScroll();
   syncNav();
 }
 

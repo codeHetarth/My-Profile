@@ -195,32 +195,32 @@ nav button.is-active::before {
 .cube.is-showing-project .face-project { visibility: visible; }
 .cube.is-showing-project .face-edu { visibility: hidden; }
 
-html.is-phone .scene:not(.is-turning) {
+html.is-phone .scene {
   perspective: none;
   transform: none;
   transform-style: flat;
 }
 
-html.is-phone .scene:not(.is-turning) .cube-rig,
-html.is-phone .scene:not(.is-turning) .cube,
-html.is-phone .scene:not(.is-turning) .face {
+html.is-phone .cube-rig,
+html.is-phone .cube,
+html.is-phone .face {
   transform: none !important;
   transform-style: flat;
   transition: none;
   backface-visibility: visible;
 }
 
-html.is-phone .scene:not(.is-turning) .face {
+html.is-phone .face {
   visibility: hidden;
   pointer-events: none;
 }
 
-html.is-phone .scene:not(.is-turning) .face.is-current {
+html.is-phone .face.is-current {
   visibility: visible;
   pointer-events: auto;
 }
 
-html.is-phone .scene:not(.is-turning) .face.is-current .face-scroll {
+html.is-phone .face.is-current .face-scroll {
   position: fixed;
   inset: 0;
   z-index: 2;
