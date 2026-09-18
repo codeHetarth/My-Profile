@@ -130,6 +130,12 @@ function schedulePlaceHits() {
   ));
 }
 
+function currentFace() {
+  if (sideOpen === "edu") return eduDetail;
+  if (sideOpen === "project") return projectDetail;
+  return document.getElementById(FACES[index]);
+}
+
 function syncNav() {
   navBtns.forEach((btn) => {
     btn.classList.toggle("is-active", Number(btn.dataset.go) === index);
@@ -158,8 +164,14 @@ function syncNav() {
   writeHash();
 }
 
+function resetFaceScroll() {
+  const face = currentFace();
+  if (face) face.scrollTop = 0;
+}
+
 function turnCube() {
   busy = true;
+  resetFaceScroll();
   cube.style.setProperty("--rx", `${rx}deg`);
   cube.style.setProperty("--ry", `${ry}deg`);
   if (!reduced) scene.classList.add("is-turning");
