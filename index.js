@@ -382,17 +382,13 @@ function fadeIn() {
 }
 
 if (video) {
-  setOpacity(0);
-  const startPlayback = () => {
-    const play = video.play();
-    if (play && typeof play.catch === "function") play.catch(() => {});
-  };
-  video.addEventListener("loadeddata", () => {
-    startPlayback();
-    fadeIn();
-  });
+  video.muted = true;
+  video.playsInline = true;
+  video.addEventListener("loadeddata", fadeIn);
   video.addEventListener("playing", () => {
     if (opacity < 1) fadeIn();
   });
-  startPlayback();
+  video.addEventListener("error", () => setOpacity(0));
+  const play = video.play();
+  if (play && typeof play.catch === "function") play.catch(() => {});
 }
