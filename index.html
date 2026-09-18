@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com; media-src 'self' https://videos.pexels.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+  />
   <title>Hetarth Modi - Portfolio</title>
   <link rel="icon" href="index_Logo.png" sizes="any" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -280,7 +285,7 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="gsap.min.js"></script>
   <script src="index.js"></script>
 </body>
 </html>
