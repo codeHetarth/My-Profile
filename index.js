@@ -362,14 +362,10 @@ const video = document.getElementById("world-media");
 if (video) {
   const phone = window.matchMedia("(max-width: 860px), (pointer: coarse)").matches;
   video.muted = true;
-  video.defaultMuted = true;
   video.playsInline = true;
-  video.setAttribute("playsinline", "");
-  video.setAttribute("webkit-playsinline", "");
   video.src = phone
     ? "https://videos.pexels.com/video-files/2169880/2169880-hd_1280_720_30fps.mp4"
     : "https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4";
-  video.load();
   video.addEventListener("playing", () => video.classList.add("is-on"));
   video.addEventListener("error", () => video.classList.remove("is-on"));
   const play = video.play();
