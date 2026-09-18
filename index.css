@@ -557,9 +557,15 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
   }
 
   h1 {
-    font-size: clamp(36px, 12vw, 48px);
-    line-height: 1.12;
+    font-size: clamp(42px, 13vw, 54px);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
     max-width: none;
+    text-wrap: balance;
+  }
+
+  .face-home .h1-rest {
+    display: block;
   }
 
   h2 {

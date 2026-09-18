@@ -258,18 +258,65 @@ projectBtns.forEach((btn) => {
 document.querySelectorAll(".face-scroll").forEach((scroller) => {
   let startY = 0;
   let startTop = 0;
+  let lastY = 0;
+  let lastT = 0;
+  let velocity = 0;
+  let coast = 0;
+
+  const clampScroll = (value) => {
+    const max = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+    return Math.max(0, Math.min(max, value));
+  };
+
+  const stopCoast = () => {
+    if (coast) cancelAnimationFrame(coast);
+    coast = 0;
+  };
+
   scroller.addEventListener("touchstart", (event) => {
     if (event.touches.length !== 1) return;
-    startY = event.touches[0].clientY;
+    stopCoast();
+    startY = lastY = event.touches[0].clientY;
     startTop = scroller.scrollTop;
+    lastT = performance.now();
+    velocity = 0;
   }, { passive: true });
+
   scroller.addEventListener("touchmove", (event) => {
     if (event.touches.length !== 1) return;
     const max = scroller.scrollHeight - scroller.clientHeight;
     if (max <= 0) return;
     event.preventDefault();
-    scroller.scrollTop = Math.max(0, Math.min(max, startTop + (startY - event.touches[0].clientY)));
+    const y = event.touches[0].clientY;
+    const now = performance.now();
+    const dt = Math.max(1, now - lastT);
+    velocity = (lastY - y) / dt;
+    lastY = y;
+    lastT = now;
+    scroller.scrollTop = clampScroll(startTop + (startY - y));
   }, { passive: false });
+
+  scroller.addEventListener("touchend", () => {
+    stopCoast();
+    const tick = () => {
+      velocity *= 0.95;
+      if (Math.abs(velocity) < 0.02) {
+        coast = 0;
+        return;
+      }
+      const next = clampScroll(scroller.scrollTop + velocity * 16.67);
+      if (next === 0 || next === Math.max(0, scroller.scrollHeight - scroller.clientHeight)) {
+        velocity = 0;
+        coast = 0;
+        scroller.scrollTop = next;
+        return;
+      }
+      scroller.scrollTop = next;
+      coast = requestAnimationFrame(tick);
+    };
+    coast = requestAnimationFrame(tick);
+  }, { passive: true });
+
   scroller.addEventListener("scroll", placeExternalHits, { passive: true });
 });
 
