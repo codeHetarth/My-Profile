@@ -12,13 +12,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&family=Syne:wght@800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="index.css?v=20260919k" />
+  <link rel="stylesheet" href="index.css?v=20260919l" />
 </head>
 <body>
   <div class="world" aria-hidden="true">
     <img class="world-still" src="bg.jpg" alt="" />
     <div class="world-video">
-      <video id="world-media" poster="bg.jpg" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+      <video id="world-media" poster="bg.jpg" autoplay muted loop playsinline preload="metadata"></video>
     </div>
     <div class="world-shade"></div>
   </div>
@@ -41,25 +41,23 @@
           <div class="face-scroll">
             <p class="kicker">Background / 2026</p>
             <h2>A little context.</h2>
-            <div class="about-grid">
-              <section class="edu">
-                <h3>Education</h3>
-                <ul>
-                  <li>
-                    <h4>B.Sc. in Computer Science</h4>
-                    <p>IU International University of Applied Sciences</p>
-                    <p>April 2025 - Present</p>
-                    <button type="button" data-edu="b1">Read More →</button>
-                  </li>
-                  <li>
-                    <h4>Studienkolleg</h4>
-                    <p>IU International University of Applied Sciences</p>
-                    <p>April 2024 - March 2025</p>
-                    <button type="button" data-edu="b2">Read More →</button>
-                  </li>
-                </ul>
-              </section>
-            </div>
+            <section class="edu">
+              <h3>Education</h3>
+              <ul>
+                <li>
+                  <h4>B.Sc. in Computer Science</h4>
+                  <p>IU International University of Applied Sciences</p>
+                  <p>April 2025 - Present</p>
+                  <button type="button" class="more" data-edu="b1">Read More →</button>
+                </li>
+                <li>
+                  <h4>Studienkolleg</h4>
+                  <p>IU International University of Applied Sciences</p>
+                  <p>April 2024 - March 2025</p>
+                  <button type="button" class="more" data-edu="b2">Read More →</button>
+                </li>
+              </ul>
+            </section>
           </div>
         </section>
 
@@ -143,22 +141,18 @@
             <h2>Recent Works.</h2>
             <div class="work-grid">
               <article class="project">
-                <div>
-                  <div class="num">01</div>
-                  <h3>Charcoal</h3>
-                  <p>Note taking Markdown Web Application.</p>
-                </div>
+                <div class="num">01</div>
+                <h3>Charcoal</h3>
+                <p>Note taking Markdown Web Application.</p>
                 <div class="tags">Tech · Web Application</div>
-                <button type="button" data-project="p1">Read More →</button>
+                <button type="button" class="more" data-project="p1">Read More →</button>
               </article>
               <article class="project">
-                <div>
-                  <div class="num">02</div>
-                  <h3>IT Service Management</h3>
-                  <p>Introduction of ITIL based IT service processes in a mid-size enterprise.</p>
-                </div>
+                <div class="num">02</div>
+                <h3>IT Service Management</h3>
+                <p>Introduction of ITIL based IT service processes in a mid-size enterprise.</p>
                 <div class="tags">Management · IT Service Management</div>
-                <button type="button" data-project="p2">Read More →</button>
+                <button type="button" class="more" data-project="p2">Read More →</button>
               </article>
             </div>
           </div>
@@ -175,24 +169,12 @@
                   <p>Built a full-stack, browser-based Markdown notes application as a university project at IU. Tasks, progress, and deadlines were planned and tracked in Monday.com.</p>
                   <p>GitHub Flavored Markdown covers headings, lists, tables, task lists, links, and syntax-highlighted code blocks. Titles and content auto-save as the user types. Registered users keep notes in PostgreSQL, tied to the account. Guest mode stores notes for the browser session only.</p>
                   <p>Accounts include registration, login, profile updates, logout, and deletion. Password reset uses time-limited email links, with optional email notifications. Export writes a local <code>.md</code> file and leaves it on the device. The layout is a notes sidebar on desktop and a drawer on mobile.</p>
-                  <div class="subject-list">
-                    <div><b>Monday.com planning and deadlines</b></div>
-                    <div><b>GitHub Flavored Markdown</b></div>
-                    <div><b>Auto-save title and content</b></div>
-                    <div><b>PostgreSQL notes per account</b></div>
-                    <div><b>Guest session storage</b></div>
-                    <div><b>Auth, profile, and account deletion</b></div>
-                    <div><b>Password reset by email</b></div>
-                    <div><b>Local .md export</b></div>
-                    <div><b>Sidebar and mobile drawer</b></div>
-                  </div>
                 </div>
                 <div>
                   <div class="meta-list">
                     <div><b>School</b><span>IU International University</span></div>
                     <div><b>Connected Subject</b><span>Project: Java and Web Application</span></div>
                     <div><b>When</b><span>July 2026 — In progress</span></div>
-                    <div><b>Repo</b><span>github.com/codeHetarth/Charcoal</span></div>
                     <div><b>Frontend</b><span>HTML, CSS, JavaScript, Milkdown</span></div>
                     <div><b>Backend</b><span>Node.js, Express.js</span></div>
                     <div><b>Database</b><span>PostgreSQL</span></div>
@@ -219,16 +201,6 @@
                   <p>Designed an ITIL 4-based service management solution for a mid-sized enterprise with IT operational inefficiencies. The roadmap outsources the IT Service Desk along the ITIL 4 Customer Journey: Explore, Engage, Offer, Agree, Onboard, Co-create, Realise.</p>
                   <p>Stakeholder analysis covers the Board of Directors, Internal IT Team, External CIO, consultants, and outsourced service providers. SLA considerations and a governance model sit between internal IT and the vendor. Communication workflows, escalation, and responsibilities are defined for both sides.</p>
                   <p>Mandatory practices include Incident Management, Problem Management, Service Desk, Change Enablement, Information Security, and Continual Improvement. A risk, challenge, and opportunity assessment closes the work — aimed at service quality, governance, and customer satisfaction.</p>
-                  <div class="subject-list">
-                    <div><b>ITIL 4 Customer Journey</b></div>
-                    <div><b>Stakeholder analysis</b></div>
-                    <div><b>SLA and service governance</b></div>
-                    <div><b>Incident, problem, service desk</b></div>
-                    <div><b>Change enablement and security</b></div>
-                    <div><b>Continual improvement</b></div>
-                    <div><b>Escalation and communication</b></div>
-                    <div><b>Risk, challenge, opportunity</b></div>
-                  </div>
                 </div>
                 <div>
                   <div class="meta-list">
@@ -281,6 +253,6 @@
     </div>
   </div>
 
-  <script src="index.js?v=20260919k"></script>
+  <script src="index.js?v=20260919l"></script>
 </body>
 </html>

@@ -57,9 +57,7 @@ button { font-family: inherit; color: inherit; }
   visibility: hidden;
 }
 
-.world-video video.is-on {
-  visibility: visible;
-}
+.world-video video.is-on { visibility: visible; }
 
 .world-shade {
   position: absolute;
@@ -80,7 +78,6 @@ header {
   flex-direction: column;
   justify-content: center;
   padding: 36px 28px;
-  background: transparent;
   pointer-events: none;
 }
 
@@ -179,12 +176,11 @@ nav button.is-active::before {
   padding: 64px 8vw 64px calc(var(--nav-w) + 28px);
 }
 
+.face-background { transform: rotateX(0deg) translateZ(var(--half)); }
 .face-home {
   background: linear-gradient(180deg, rgba(7, 16, 24, 0.08), rgba(7, 16, 24, 0.42));
+  transform: rotateX(-90deg) translateZ(var(--half));
 }
-
-.face-background { transform: rotateX(0deg) translateZ(var(--half)); }
-.face-home { transform: rotateX(-90deg) translateZ(var(--half)); }
 .face-projects { transform: rotateX(180deg) translateZ(var(--half)); }
 .face-about { transform: rotateX(90deg) translateZ(var(--half)); }
 .face-edu { transform: rotateY(90deg) translateZ(var(--half-w)); }
@@ -195,11 +191,7 @@ nav button.is-active::before {
 .cube.is-showing-project .face-project { visibility: visible; }
 .cube.is-showing-project .face-edu { visibility: hidden; }
 
-html.is-phone .scene {
-  perspective: none;
-  transform: none;
-  transform-style: flat;
-}
+html.is-phone .scene { perspective: none; }
 
 html.is-phone .cube-rig,
 html.is-phone .cube,
@@ -224,11 +216,6 @@ html.is-phone .face.is-current .face-scroll {
   position: fixed;
   inset: 0;
   z-index: 2;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  touch-action: pan-y;
 }
 
 .kicker {
@@ -249,8 +236,12 @@ html.is-phone .face.is-current .face-scroll {
   background: var(--accent);
 }
 
-h1, h2 {
+h1, h2, .edu h3, .edu h4, .project h3 {
   font-family: Syne, sans-serif;
+  letter-spacing: -0.03em;
+}
+
+h1, h2 {
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.5;
@@ -285,21 +276,10 @@ p {
 }
 
 .edu h3,
-.edu h4 {
-  font-family: Syne, sans-serif;
-  letter-spacing: -0.03em;
-  color: var(--fg);
-}
+.edu h4 { color: var(--fg); }
 
-.edu h3 {
-  font-size: 30px;
-  margin: 8px 0;
-}
-
-.edu h4 {
-  font-size: 26px;
-  margin: 8px 0;
-}
+.edu h3 { font-size: 30px; margin: 8px 0; }
+.edu h4 { font-size: 26px; margin: 8px 0; }
 
 .edu ul {
   list-style: none;
@@ -309,32 +289,30 @@ p {
 }
 
 .edu p,
-.edu button {
+.edu .more,
+.project .more,
+.repo-line .text-link {
   font-size: 20px;
   line-height: 1.35;
 }
 
 .edu p + p,
-.edu p + button {
-  margin-top: 4px;
-}
+.edu p + .more { margin-top: 4px; }
 
-.edu button {
+.more {
   display: block;
   margin-top: 4px;
   padding: 0;
   border: 0;
   background: none;
   font: inherit;
-  font-size: 20px;
-  line-height: 1.35;
   color: var(--muted);
   cursor: pointer;
 }
 
-.edu button:hover {
-  color: var(--fg);
-}
+.project .more { margin-top: 16px; }
+
+.more:hover { color: var(--fg); }
 
 .edu-back {
   position: fixed;
@@ -361,9 +339,7 @@ p {
 .edu-back:hover { color: var(--fg); }
 
 .face-edu .face-scroll,
-.face-project .face-scroll {
-  padding-top: 108px;
-}
+.face-project .face-scroll { padding-top: 108px; }
 
 .edu-panel,
 .project-panel { display: none; }
@@ -398,14 +374,8 @@ p {
   text-decoration: none;
 }
 
-.repo-line .text-link {
-  margin: 0;
-  font-size: 20px;
-}
-
-.repo-line .text-link:hover {
-  color: var(--fg);
-}
+.repo-line .text-link { margin: 0; }
+.repo-line .text-link:hover { color: var(--fg); }
 
 .project-panel code {
   font-size: 0.92em;
@@ -454,9 +424,7 @@ p {
 }
 
 .project h3 {
-  font-family: Syne, sans-serif;
   font-size: 28px;
-  letter-spacing: -0.03em;
   margin: 8px 0 10px;
 }
 
@@ -464,23 +432,6 @@ p {
   color: var(--muted);
   font-size: 16px;
   margin-top: 28px;
-}
-
-.project button {
-  display: block;
-  margin-top: 16px;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: 20px;
-  line-height: 1.35;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.project button:hover {
-  color: var(--fg);
 }
 
 @media (max-width: 860px) {
@@ -581,8 +532,8 @@ p {
 
   p,
   .edu p,
-  .edu button,
-  .project button,
+  .edu .more,
+  .project .more,
   .repo-line .text-link {
     font-size: 16px;
   }

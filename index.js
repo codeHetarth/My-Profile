@@ -4,11 +4,10 @@ const cube = document.getElementById("cube");
 const eduDetail = document.getElementById("edu-detail");
 const projectDetail = document.getElementById("project-detail");
 const navBtns = [...document.querySelectorAll("nav [data-go]")];
-const eduBtns = [...document.querySelectorAll("[data-edu]")];
 const eduPanels = [...document.querySelectorAll("[data-edu-panel]")];
-const projectBtns = [...document.querySelectorAll("[data-project]")];
 const projectPanels = [...document.querySelectorAll("[data-project-panel]")];
 const eduBack = document.getElementById("edu-back");
+const video = document.getElementById("world-media");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const phoneMq = window.matchMedia("(max-width: 860px), (pointer: coarse)");
 const DURATION = 1100;
@@ -35,14 +34,14 @@ function setHalf() {
   document.documentElement.style.setProperty("--half-w", `${scene.clientWidth / 2}px`);
 }
 
-function activePanel(panels, key) {
-  return panels.find((panel) => panel.classList.contains("is-active"))?.[key] ?? null;
+function activeId(panels, key) {
+  return panels.find((panel) => panel.classList.contains("is-active"))?.dataset[key] ?? null;
 }
 
 function writeHash() {
   let hash = FACES[index];
-  if (sideOpen === "edu") hash = activePanel(eduPanels, "dataset")?.eduPanel || hash;
-  if (sideOpen === "project") hash = activePanel(projectPanels, "dataset")?.projectPanel || hash;
+  if (sideOpen === "edu") hash = activeId(eduPanels, "eduPanel") || hash;
+  if (sideOpen === "project") hash = activeId(projectPanels, "projectPanel") || hash;
   const next = `#${hash}`;
   if (location.hash !== next) history.replaceState(null, "", next);
 }
@@ -130,9 +129,9 @@ function syncNav() {
     const face = document.getElementById(id);
     if (face) face.style.pointerEvents = !sideOpen && i === index ? "auto" : "none";
   });
-  if (eduDetail) eduDetail.style.pointerEvents = sideOpen === "edu" ? "auto" : "none";
-  if (projectDetail) projectDetail.style.pointerEvents = sideOpen === "project" ? "auto" : "none";
-  if (eduBack) eduBack.classList.toggle("is-visible", Boolean(sideOpen));
+  eduDetail.style.pointerEvents = sideOpen === "edu" ? "auto" : "none";
+  projectDetail.style.pointerEvents = sideOpen === "project" ? "auto" : "none";
+  eduBack.classList.toggle("is-visible", Boolean(sideOpen));
   writeHash();
 }
 
@@ -171,47 +170,14 @@ function pauseCubeMotion(fn) {
   if (rig) rig.style.transition = "";
 }
 
-function openSheet() {
-  resetFaceScroll();
-  syncNav();
-}
-
-function closeSheet() {
-  scene.classList.remove("is-edu-open", "is-project-open");
-  cube.classList.remove("is-showing-project");
-  cube.style.setProperty("--ry", "0deg");
-  resetFaceScroll();
-  syncNav();
-}
-
-function openEdu(id) {
-  if (busy || sideOpen || index !== 0) return;
-  eduPanels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.dataset.eduPanel === id);
-  });
-  sideOpen = "edu";
+function showSide(side, id, requiredIndex) {
+  if (busy || sideOpen || index !== requiredIndex) return;
+  applySide(side, id);
   if (isPhone()) {
-    openSheet();
+    resetFaceScroll();
+    syncNav();
     return;
   }
-  ry = -90;
-  scene.classList.add("is-edu-open");
-  turnCube();
-}
-
-function openProject(id) {
-  if (busy || sideOpen || index !== 2) return;
-  projectPanels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.dataset.projectPanel === id);
-  });
-  sideOpen = "project";
-  if (isPhone()) {
-    openSheet();
-    return;
-  }
-  ry = 90;
-  cube.classList.add("is-showing-project");
-  scene.classList.add("is-project-open");
   turnCube();
 }
 
@@ -219,8 +185,11 @@ function closeSide() {
   if (!sideOpen) return;
   sideOpen = null;
   ry = 0;
+  scene.classList.remove("is-edu-open", "is-project-open");
+  cube.classList.remove("is-showing-project");
   if (isPhone()) {
-    closeSheet();
+    resetFaceScroll();
+    syncNav();
     if (pendingGo !== null) {
       const next = pendingGo;
       pendingGo = null;
@@ -228,7 +197,6 @@ function closeSide() {
     }
     return;
   }
-  scene.classList.remove("is-edu-open", "is-project-open");
   turnCube();
 }
 
@@ -272,26 +240,23 @@ window.addEventListener("resize", () => {
 navBtns.forEach((btn) => {
   btn.addEventListener("click", () => goTo(Number(btn.dataset.go)));
 });
-eduBtns.forEach((btn) => {
-  btn.addEventListener("click", () => openEdu(btn.dataset.edu));
+document.querySelectorAll("[data-edu]").forEach((btn) => {
+  btn.addEventListener("click", () => showSide("edu", btn.dataset.edu, 0));
 });
-projectBtns.forEach((btn) => {
-  btn.addEventListener("click", () => openProject(btn.dataset.project));
+document.querySelectorAll("[data-project]").forEach((btn) => {
+  btn.addEventListener("click", () => showSide("project", btn.dataset.project, 2));
 });
-
-if (eduBack) eduBack.addEventListener("click", closeSide);
+eduBack.addEventListener("click", closeSide);
 
 cube.addEventListener("transitionend", (event) => {
   if (event.propertyName !== "transform" || event.target !== cube) return;
   unlock();
 });
 
-const video = document.getElementById("world-media");
 if (video) {
-  const phone = window.matchMedia("(max-width: 860px), (pointer: coarse)").matches;
   video.muted = true;
   video.playsInline = true;
-  video.src = phone
+  video.src = isPhone()
     ? "https://videos.pexels.com/video-files/2169880/2169880-hd_1280_720_30fps.mp4"
     : "https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4";
   video.addEventListener("playing", () => video.classList.add("is-on"));
