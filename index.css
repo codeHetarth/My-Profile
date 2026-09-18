@@ -195,24 +195,24 @@ nav button.is-active::before {
 .cube.is-showing-project .face-project { visibility: visible; }
 .cube.is-showing-project .face-edu { visibility: hidden; }
 
-html.is-phone .scene.is-sheet-open {
+html.is-phone .scene:not(.is-turning) {
   perspective: none;
 }
 
-html.is-phone .scene.is-sheet-open .cube-rig,
-html.is-phone .scene.is-sheet-open .cube,
-html.is-phone .scene.is-sheet-open .face {
+html.is-phone .scene:not(.is-turning) .cube-rig,
+html.is-phone .scene:not(.is-turning) .cube,
+html.is-phone .scene:not(.is-turning) .face {
   transform: none !important;
   transform-style: flat;
   transition: none;
 }
 
-html.is-phone .scene.is-sheet-open .face {
+html.is-phone .scene:not(.is-turning) .face {
   visibility: hidden;
   pointer-events: none;
 }
 
-html.is-phone .scene.is-sheet-open .face.is-current {
+html.is-phone .scene:not(.is-turning) .face.is-current {
   visibility: visible;
   pointer-events: auto;
 }
