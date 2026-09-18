@@ -421,7 +421,7 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
   box-sizing: border-box;
   width: 100%;
   border: 1px solid var(--line);
-  min-height: 280px;
+  min-height: 160px;
   padding: 22px;
   display: inline-block;
   text-align: left;
@@ -446,7 +446,11 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
   margin: 8px 0 10px;
 }
 
-.tags { color: var(--muted); font-size: 13px; }
+.tags { 
+  color: var(--muted); 
+  font-size: 16px; 
+  margin-top: 28px;
+}
 
 .project button {
   display: block;
@@ -455,7 +459,7 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
   border: 0;
   background: none;
   font: inherit;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.35;
   color: var(--muted);
   cursor: pointer;
