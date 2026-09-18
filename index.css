@@ -147,14 +147,17 @@ nav button.is-active::before {
   transform: translateZ(calc(var(--half-w) * -1.45)) scale(0.86);
 }
 
+.cube-x,
 .cube {
   width: 100%;
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateX(var(--rx, 90deg)) rotateY(var(--ry, 0deg));
   transition: transform var(--duration) var(--ease);
 }
+
+.cube-x { transform: rotateX(var(--rx, 90deg)); }
+.cube { transform: rotateY(var(--ry, 0deg)); }
 
 .face {
   position: absolute;
@@ -194,6 +197,7 @@ nav button.is-active::before {
 html.is-phone .scene { perspective: none; }
 
 html.is-phone .cube-rig,
+html.is-phone .cube-x,
 html.is-phone .cube,
 html.is-phone .face {
   transform: none !important;
@@ -565,12 +569,6 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cube, .cube-rig { transition: none; }
+  .cube, .cube-x, .cube-rig { transition: none; }
   .scene.is-turning .cube-rig { transform: translateZ(calc(var(--half) * -1)); }
-  .scene.is-edu-open .cube-rig,
-  .scene.is-edu-open.is-turning .cube-rig,
-  .scene.is-project-open .cube-rig,
-  .scene.is-project-open.is-turning .cube-rig {
-    transform: translateZ(calc(var(--half-w) * -1));
-  }
 }

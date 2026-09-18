@@ -1,5 +1,6 @@
 const FACES = ["background", "home", "projects", "about"];
 const scene = document.getElementById("scene");
+const cubeX = document.getElementById("cube-x");
 const cube = document.getElementById("cube");
 const eduDetail = document.getElementById("edu-detail");
 const projectDetail = document.getElementById("project-detail");
@@ -62,6 +63,11 @@ function parseHash() {
   return { index: START, side: null, id: null };
 }
 
+function applyCube() {
+  cubeX.style.setProperty("--rx", `${rx}deg`);
+  cube.style.setProperty("--ry", `${ry}deg`);
+}
+
 function applySide(side, id) {
   sideOpen = side;
   ry = 0;
@@ -95,8 +101,7 @@ function snapToHash() {
   index = state.index;
   rx = index * 90;
   applySide(state.side, state.id);
-  cube.style.setProperty("--rx", `${rx}deg`);
-  cube.style.setProperty("--ry", `${ry}deg`);
+  applyCube();
   syncNav();
 }
 
@@ -143,8 +148,7 @@ function resetFaceScroll() {
 function turnCube() {
   resetFaceScroll();
   if (isPhone()) ry = 0;
-  cube.style.setProperty("--rx", `${rx}deg`);
-  cube.style.setProperty("--ry", `${ry}deg`);
+  applyCube();
 
   if (isPhone() || reduced) {
     scene.classList.remove("is-turning");
@@ -161,13 +165,15 @@ function turnCube() {
 }
 
 function pauseCubeMotion(fn) {
-  const rig = cube.parentElement;
-  cube.style.transition = "none";
-  if (rig) rig.style.transition = "none";
+  const rig = cubeX.parentElement;
+  [cube, cubeX, rig].forEach((el) => {
+    if (el) el.style.transition = "none";
+  });
   fn();
   cube.offsetHeight;
-  cube.style.transition = "";
-  if (rig) rig.style.transition = "";
+  [cube, cubeX, rig].forEach((el) => {
+    if (el) el.style.transition = "";
+  });
 }
 
 function showSide(side, id, requiredIndex) {
@@ -186,8 +192,8 @@ function closeSide() {
   sideOpen = null;
   ry = 0;
   scene.classList.remove("is-edu-open", "is-project-open");
-  cube.classList.remove("is-showing-project");
   if (isPhone()) {
+    cube.classList.remove("is-showing-project");
     resetFaceScroll();
     syncNav();
     if (pendingGo !== null) {
@@ -250,6 +256,10 @@ eduBack.addEventListener("click", closeSide);
 
 cube.addEventListener("transitionend", (event) => {
   if (event.propertyName !== "transform" || event.target !== cube) return;
+  unlock();
+});
+cubeX.addEventListener("transitionend", (event) => {
+  if (event.propertyName !== "transform" || event.target !== cubeX) return;
   unlock();
 });
 
