@@ -197,6 +197,8 @@ nav button.is-active::before {
 
 html.is-phone .scene:not(.is-turning) {
   perspective: none;
+  transform: none;
+  transform-style: flat;
 }
 
 html.is-phone .scene:not(.is-turning) .cube-rig,
@@ -205,6 +207,7 @@ html.is-phone .scene:not(.is-turning) .face {
   transform: none !important;
   transform-style: flat;
   transition: none;
+  backface-visibility: visible;
 }
 
 html.is-phone .scene:not(.is-turning) .face {
@@ -215,6 +218,17 @@ html.is-phone .scene:not(.is-turning) .face {
 html.is-phone .scene:not(.is-turning) .face.is-current {
   visibility: visible;
   pointer-events: auto;
+}
+
+html.is-phone .scene:not(.is-turning) .face.is-current .face-scroll {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 .kicker {
