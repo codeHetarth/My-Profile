@@ -14,8 +14,17 @@ const repoHit = document.getElementById("repo-hit");
 const linkedinHit = document.getElementById("linkedin-hit");
 const aboutGithubHit = document.getElementById("about-github-hit");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const flatMq = window.matchMedia("(max-width: 860px), (pointer: coarse)");
 const DURATION = 1100;
 const START = 1;
+
+function isFlat() {
+  return flatMq.matches;
+}
+
+function syncFlat() {
+  document.documentElement.classList.toggle("is-flat", isFlat());
+}
 
 let index = START;
 let rx = START * 90;
@@ -140,6 +149,9 @@ function syncNav() {
   navBtns.forEach((btn) => {
     btn.classList.toggle("is-active", Number(btn.dataset.go) === index);
   });
+  document.querySelectorAll(".face").forEach((face) => {
+    face.classList.toggle("is-current", face === currentFace());
+  });
   FACES.forEach((id, i) => {
     const face = document.getElementById(id);
     if (face) face.style.pointerEvents = !sideOpen && i === index ? "auto" : "none";
@@ -170,14 +182,22 @@ function resetFaceScroll() {
 }
 
 function turnCube() {
-  busy = true;
   resetFaceScroll();
   cube.style.setProperty("--rx", `${rx}deg`);
   cube.style.setProperty("--ry", `${ry}deg`);
-  if (!reduced) scene.classList.add("is-turning");
+
+  if (isFlat() || reduced) {
+    scene.classList.remove("is-turning");
+    syncNav();
+    unlock();
+    return;
+  }
+
+  busy = true;
+  scene.classList.add("is-turning");
   syncNav();
   window.clearTimeout(unlockTimer);
-  unlockTimer = window.setTimeout(unlock, reduced ? 0 : DURATION);
+  unlockTimer = window.setTimeout(unlock, DURATION);
 }
 
 function openEdu(id) {
@@ -233,6 +253,14 @@ function goTo(next) {
   turnCube();
 }
 
+syncFlat();
+if (typeof flatMq.addEventListener === "function") {
+  flatMq.addEventListener("change", () => {
+    syncFlat();
+    setHalf();
+    syncNav();
+  });
+}
 setHalf();
 const rig = cube.parentElement;
 cube.style.transition = "none";
@@ -243,6 +271,7 @@ cube.style.transition = "";
 if (rig) rig.style.transition = "";
 
 window.addEventListener("resize", () => {
+  syncFlat();
   setHalf();
   placeExternalHits();
 });
@@ -283,7 +312,7 @@ document.querySelectorAll(".face-scroll").forEach((scroller) => {
   }, { passive: true });
 
   scroller.addEventListener("touchmove", (event) => {
-    if (event.touches.length !== 1) return;
+    if (isFlat() || event.touches.length !== 1) return;
     const max = scroller.scrollHeight - scroller.clientHeight;
     if (max <= 0) return;
     event.preventDefault();
@@ -297,6 +326,7 @@ document.querySelectorAll(".face-scroll").forEach((scroller) => {
   }, { passive: false });
 
   scroller.addEventListener("touchend", () => {
+    if (isFlat()) return;
     stopCoast();
     const tick = () => {
       velocity *= 0.95;

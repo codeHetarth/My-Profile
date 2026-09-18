@@ -212,6 +212,72 @@ nav button.is-active::before {
 .cube.is-showing-project .face-project { visibility: visible; }
 .cube.is-showing-project .face-edu { visibility: hidden; }
 
+html.is-flat .scene {
+  perspective: none;
+}
+
+html.is-flat .cube-rig,
+html.is-flat .cube,
+html.is-flat .face,
+html.is-flat .face-background,
+html.is-flat .face-home,
+html.is-flat .face-projects,
+html.is-flat .face-about,
+html.is-flat .face-edu,
+html.is-flat .face-project,
+html.is-flat .scene.is-turning .cube-rig,
+html.is-flat .scene.is-edu-open .cube-rig,
+html.is-flat .scene.is-project-open .cube-rig,
+html.is-flat .scene.is-edu-open.is-turning .cube-rig,
+html.is-flat .scene.is-project-open.is-turning .cube-rig {
+  transform: none !important;
+  transform-style: flat;
+  transition: none;
+}
+
+html.is-flat .face {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+html.is-flat .face.is-current {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (max-width: 860px), (pointer: coarse) {
+  .scene { perspective: none; }
+
+  .cube-rig,
+  .cube,
+  .face,
+  .face-background,
+  .face-home,
+  .face-projects,
+  .face-about,
+  .face-edu,
+  .face-project,
+  .scene.is-turning .cube-rig,
+  .scene.is-edu-open .cube-rig,
+  .scene.is-project-open .cube-rig,
+  .scene.is-edu-open.is-turning .cube-rig,
+  .scene.is-project-open.is-turning .cube-rig {
+    transform: none !important;
+    transform-style: flat;
+    transition: none;
+  }
+
+  .face {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .face.is-current {
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
 .kicker {
   display: flex;
   align-items: center;
