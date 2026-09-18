@@ -164,26 +164,28 @@ function turnCube() {
   unlockTimer = window.setTimeout(unlock, DURATION);
 }
 
-function openSheet() {
+function pauseCubeMotion(fn) {
   const rig = cube.parentElement;
   cube.style.transition = "none";
   if (rig) rig.style.transition = "none";
-  scene.classList.add("is-sheet-open");
+  fn();
   cube.offsetHeight;
+  cube.style.transition = "";
+  if (rig) rig.style.transition = "";
+}
+
+function openSheet() {
+  pauseCubeMotion(() => scene.classList.add("is-sheet-open"));
   resetFaceScroll();
   syncNav();
 }
 
 function closeSheet() {
-  const rig = cube.parentElement;
-  scene.classList.remove("is-sheet-open", "is-edu-open", "is-project-open");
-  cube.classList.remove("is-showing-project");
-  cube.style.transition = "none";
-  if (rig) rig.style.transition = "none";
-  cube.style.setProperty("--ry", "0deg");
-  cube.offsetHeight;
-  cube.style.transition = "";
-  if (rig) rig.style.transition = "";
+  pauseCubeMotion(() => {
+    scene.classList.remove("is-sheet-open", "is-edu-open", "is-project-open");
+    cube.classList.remove("is-showing-project");
+    cube.style.setProperty("--ry", "0deg");
+  });
   syncNav();
 }
 
@@ -266,13 +268,7 @@ if (typeof phoneMq.addEventListener === "function") {
   });
 }
 setHalf();
-const rig = cube.parentElement;
-cube.style.transition = "none";
-if (rig) rig.style.transition = "none";
-snapToHash();
-cube.offsetHeight;
-cube.style.transition = "";
-if (rig) rig.style.transition = "";
+pauseCubeMotion(snapToHash);
 
 window.addEventListener("resize", () => {
   syncPhone();
