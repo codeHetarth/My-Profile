@@ -218,13 +218,7 @@ html.is-phone .scene.is-sheet-open {
 
 html.is-phone .scene.is-sheet-open .cube-rig,
 html.is-phone .scene.is-sheet-open .cube,
-html.is-phone .scene.is-sheet-open .face,
-html.is-phone .scene.is-sheet-open .face-background,
-html.is-phone .scene.is-sheet-open .face-home,
-html.is-phone .scene.is-sheet-open .face-projects,
-html.is-phone .scene.is-sheet-open .face-about,
-html.is-phone .scene.is-sheet-open .face-edu,
-html.is-phone .scene.is-sheet-open .face-project {
+html.is-phone .scene.is-sheet-open .face {
   transform: none !important;
   transform-style: flat;
   transition: none;
@@ -401,23 +395,10 @@ p {
   padding: 18px 0;
 }
 
-.repo-hit {
-  position: fixed;
-  z-index: 6;
-  display: none;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.repo-hit.is-visible {
-  display: block;
-}
-
 .text-link {
   display: inline-block;
   color: var(--muted);
   text-decoration: none;
-  pointer-events: auto;
 }
 
 .repo-line .text-link {
@@ -425,10 +406,7 @@ p {
   font-size: 20px;
 }
 
-.repo-line:hover .text-link,
-body:has(#repo-hit.is-visible:hover) .face-project .repo-line .text-link,
-body:has(#linkedin-hit.is-visible:hover) #about-linkedin,
-body:has(#about-github-hit.is-visible:hover) #about-github {
+.repo-line .text-link:hover {
   color: var(--fg);
 }
 
@@ -516,7 +494,6 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
   header { padding: 24px 12px; }
   nav { gap: 16px; }
   nav button { font-size: 10px; letter-spacing: 0.12em; padding-left: 12px; }
-  .face { padding: 0; }
   .face-scroll { padding: 36px 22px 36px calc(var(--nav-w) + 12px); }
   .face-edu .face-scroll,
   .face-project .face-scroll { padding-top: 72px; }
@@ -588,18 +565,6 @@ body:has(#about-github-hit.is-visible:hover) #about-github {
   .edu-back {
     top: calc(52px + env(safe-area-inset-top));
     left: 20px;
-  }
-
-  h1 {
-    font-size: clamp(42px, 13vw, 54px);
-    line-height: 0.95;
-    letter-spacing: -0.05em;
-    max-width: none;
-    text-wrap: balance;
-  }
-
-  .face-home .h1-rest {
-    display: block;
   }
 
   h2 {

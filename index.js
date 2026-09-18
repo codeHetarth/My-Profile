@@ -3,29 +3,16 @@ const scene = document.getElementById("scene");
 const cube = document.getElementById("cube");
 const eduDetail = document.getElementById("edu-detail");
 const projectDetail = document.getElementById("project-detail");
-const goBtns = [...document.querySelectorAll("[data-go]")];
 const navBtns = [...document.querySelectorAll("nav [data-go]")];
 const eduBtns = [...document.querySelectorAll("[data-edu]")];
 const eduPanels = [...document.querySelectorAll("[data-edu-panel]")];
 const projectBtns = [...document.querySelectorAll("[data-project]")];
 const projectPanels = [...document.querySelectorAll("[data-project-panel]")];
 const eduBack = document.getElementById("edu-back");
-const repoHit = document.getElementById("repo-hit");
-const linkedinHit = document.getElementById("linkedin-hit");
-const aboutGithubHit = document.getElementById("about-github-hit");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const flatMq = window.matchMedia("(max-width: 860px), (pointer: coarse)");
+const phoneMq = window.matchMedia("(max-width: 860px), (pointer: coarse)");
 const DURATION = 1100;
 const START = 1;
-
-function isPhone() {
-  return flatMq.matches;
-}
-
-function syncPhone() {
-  document.documentElement.classList.toggle("is-phone", isPhone());
-  if (scene) scene.classList.toggle("is-sheet-open", isPhone() && Boolean(sideOpen));
-}
 
 let index = START;
 let rx = START * 90;
@@ -34,6 +21,15 @@ let sideOpen = null;
 let busy = false;
 let unlockTimer = 0;
 let pendingGo = null;
+
+function isPhone() {
+  return phoneMq.matches;
+}
+
+function syncPhone() {
+  document.documentElement.classList.toggle("is-phone", isPhone());
+  if (scene) scene.classList.toggle("is-sheet-open", isPhone() && Boolean(sideOpen));
+}
 
 function setHalf() {
   document.documentElement.style.setProperty("--half", `${scene.clientHeight / 2}px`);
@@ -112,38 +108,12 @@ function unlock() {
   scene.classList.remove("is-turning");
   if (!sideOpen) cube.classList.remove("is-showing-project");
   syncNav();
-  schedulePlaceHits();
   busy = false;
   if (pendingGo !== null) {
     const next = pendingGo;
     pendingGo = null;
     goTo(next);
   }
-}
-
-let hitPlaceTimers = [];
-
-function placeHit(hit, src) {
-  if (!hit?.classList.contains("is-visible") || !src) return;
-  const box = src.getBoundingClientRect();
-  if (box.width < 8 && box.height < 8) return;
-  hit.style.top = `${box.top}px`;
-  hit.style.left = `${box.left}px`;
-  hit.style.width = `${box.width}px`;
-  hit.style.height = `${box.height}px`;
-}
-
-function placeExternalHits() {
-  placeHit(repoHit, document.querySelector(".face-project .project-panel.is-active .repo-line a"));
-  placeHit(linkedinHit, document.getElementById("about-linkedin"));
-  placeHit(aboutGithubHit, document.getElementById("about-github"));
-}
-
-function schedulePlaceHits() {
-  hitPlaceTimers.forEach((id) => window.clearTimeout(id));
-  hitPlaceTimers = [0, 32, 80, 160, 320, 500, 900].map((ms) => (
-    window.setTimeout(placeExternalHits, ms)
-  ));
 }
 
 function currentFace() {
@@ -166,20 +136,6 @@ function syncNav() {
   if (eduDetail) eduDetail.style.pointerEvents = sideOpen === "edu" ? "auto" : "none";
   if (projectDetail) projectDetail.style.pointerEvents = sideOpen === "project" ? "auto" : "none";
   if (eduBack) eduBack.classList.toggle("is-visible", Boolean(sideOpen));
-  if (repoHit) {
-    const charcoalOpen = sideOpen === "project" && !scene.classList.contains("is-turning") && activePanel(projectPanels, "dataset")?.projectPanel === "p1";
-    repoHit.classList.toggle("is-visible", charcoalOpen);
-  }
-  if (linkedinHit) {
-    const aboutOpen = !sideOpen && !scene.classList.contains("is-turning") && index === 3;
-    linkedinHit.classList.toggle("is-visible", aboutOpen);
-  }
-  if (aboutGithubHit) {
-    const aboutOpen = !sideOpen && !scene.classList.contains("is-turning") && index === 3;
-    aboutGithubHit.classList.toggle("is-visible", aboutOpen);
-  }
-  placeExternalHits();
-  if (!scene.classList.contains("is-turning")) schedulePlaceHits();
   writeHash();
 }
 
@@ -302,8 +258,8 @@ function goTo(next) {
 }
 
 syncPhone();
-if (typeof flatMq.addEventListener === "function") {
-  flatMq.addEventListener("change", () => {
+if (typeof phoneMq.addEventListener === "function") {
+  phoneMq.addEventListener("change", () => {
     syncPhone();
     setHalf();
     syncNav();
@@ -321,9 +277,8 @@ if (rig) rig.style.transition = "";
 window.addEventListener("resize", () => {
   syncPhone();
   setHalf();
-  placeExternalHits();
 });
-goBtns.forEach((btn) => {
+navBtns.forEach((btn) => {
   btn.addEventListener("click", () => goTo(Number(btn.dataset.go)));
 });
 eduBtns.forEach((btn) => {
@@ -394,39 +349,17 @@ document.querySelectorAll(".face-scroll").forEach((scroller) => {
     };
     coast = requestAnimationFrame(tick);
   }, { passive: true });
-
-  scroller.addEventListener("scroll", placeExternalHits, { passive: true });
 });
 
 if (eduBack) eduBack.addEventListener("click", closeSide);
-
-function openExternal(event, el) {
-  if (!el) return;
-  event.preventDefault();
-  event.stopPropagation();
-  window.open(el.href, "_blank", "noopener,noreferrer");
-}
-
-if (repoHit) repoHit.addEventListener("click", (event) => openExternal(event, repoHit));
-if (linkedinHit) linkedinHit.addEventListener("click", (event) => openExternal(event, linkedinHit));
-if (aboutGithubHit) aboutGithubHit.addEventListener("click", (event) => openExternal(event, aboutGithubHit));
-
-["about-linkedin", "about-github"].forEach((id) => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener("click", (event) => openExternal(event, el));
-});
-const charcoalLink = document.querySelector(".face-project .repo-line a");
-if (charcoalLink) charcoalLink.addEventListener("click", (event) => openExternal(event, charcoalLink));
 
 cube.addEventListener("transitionend", (event) => {
   if (event.propertyName !== "transform" || event.target !== cube) return;
   unlock();
 });
 
-const videoBg = document.getElementById("world-video");
 const video = document.getElementById("world-media");
 const FADE_MS = 400;
-
 let fadeRaf = 0;
 let opacity = 0;
 
@@ -439,54 +372,27 @@ function fadeIn() {
   if (fadeRaf) cancelAnimationFrame(fadeRaf);
   const from = opacity;
   const start = performance.now();
-
   const tick = (now) => {
     const t = Math.min(1, (now - start) / FADE_MS);
     setOpacity(from + (1 - from) * t);
     if (t < 1) fadeRaf = requestAnimationFrame(tick);
     else fadeRaf = 0;
   };
-
   fadeRaf = requestAnimationFrame(tick);
 }
 
 if (video) {
   setOpacity(0);
-
   const startPlayback = () => {
     const play = video.play();
     if (play && typeof play.catch === "function") play.catch(() => {});
   };
-
   video.addEventListener("loadeddata", () => {
     startPlayback();
     fadeIn();
   });
-
   video.addEventListener("playing", () => {
     if (opacity < 1) fadeIn();
   });
-
   startPlayback();
-}
-
-if (videoBg && window.gsap && !reduced) {
-  let currentX = 0;
-  let currentY = 0;
-  let targetX = 0;
-  let targetY = 0;
-
-  window.addEventListener("mousemove", (event) => {
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    targetX = ((event.clientX - cx) / cx) * 20;
-    targetY = ((event.clientY - cy) / cy) * 20;
-  });
-
-  (function tick() {
-    currentX += (targetX - currentX) * 0.06;
-    currentY += (targetY - currentY) * 0.06;
-    gsap.set(videoBg, { x: currentX, y: currentY });
-    requestAnimationFrame(tick);
-  })();
 }
