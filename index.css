@@ -37,26 +37,28 @@ button { font-family: inherit; color: inherit; }
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background:
-    #000
-    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80")
-    center / cover no-repeat;
+  background: #071018;
 }
 
-.world-video {
-  position: absolute;
-  inset: 0;
-}
-
+.world-still,
+.world-video,
 .world-video video {
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 120%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
-  opacity: 0;
+}
+
+.world-video video {
+  height: 120%;
+  visibility: hidden;
+}
+
+.world-video video.is-on {
+  visibility: visible;
 }
 
 .world-gradient-x {

@@ -359,36 +359,19 @@ cube.addEventListener("transitionend", (event) => {
 });
 
 const video = document.getElementById("world-media");
-const FADE_MS = 400;
-let fadeRaf = 0;
-let opacity = 0;
-
-function setOpacity(value) {
-  opacity = Math.max(0, Math.min(1, value));
-  if (video) video.style.opacity = String(opacity);
-}
-
-function fadeIn() {
-  if (fadeRaf) cancelAnimationFrame(fadeRaf);
-  const from = opacity;
-  const start = performance.now();
-  const tick = (now) => {
-    const t = Math.min(1, (now - start) / FADE_MS);
-    setOpacity(from + (1 - from) * t);
-    if (t < 1) fadeRaf = requestAnimationFrame(tick);
-    else fadeRaf = 0;
-  };
-  fadeRaf = requestAnimationFrame(tick);
-}
-
 if (video) {
+  const phone = window.matchMedia("(max-width: 860px), (pointer: coarse)").matches;
   video.muted = true;
+  video.defaultMuted = true;
   video.playsInline = true;
-  video.addEventListener("loadeddata", fadeIn);
-  video.addEventListener("playing", () => {
-    if (opacity < 1) fadeIn();
-  });
-  video.addEventListener("error", () => setOpacity(0));
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+  video.src = phone
+    ? "https://videos.pexels.com/video-files/2169880/2169880-hd_1280_720_30fps.mp4"
+    : "https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4";
+  video.load();
+  video.addEventListener("playing", () => video.classList.add("is-on"));
+  video.addEventListener("error", () => video.classList.remove("is-on"));
   const play = video.play();
   if (play && typeof play.catch === "function") play.catch(() => {});
 }

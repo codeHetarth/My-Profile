@@ -13,19 +13,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="index.css?v=20260919g" />
+  <link rel="stylesheet" href="index.css?v=20260919h" />
 </head>
 <body>
   <div class="world" aria-hidden="true">
+    <img class="world-still" src="bg.jpg" alt="" />
     <div class="world-video">
       <video
         id="world-media"
-        src="https://videos.pexels.com/video-files/2169880/2169880-uhd_2560_1440_30fps.mp4"
-        poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
+        poster="bg.jpg"
         autoplay
         muted
         loop
         playsinline
+        webkit-playsinline
+        preload="metadata"
       ></video>
     </div>
     <div class="world-gradient-x"></div>
@@ -293,6 +295,6 @@
     </div>
   </div>
 
-  <script src="index.js?v=20260919g"></script>
+  <script src="index.js?v=20260919h"></script>
 </body>
 </html>
