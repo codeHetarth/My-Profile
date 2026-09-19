@@ -331,14 +331,9 @@ cubeX.addEventListener("transitionend", (event) => {
   unlock(turnSeq);
 });
 
-if (video) {
-  video.muted = true;
-  video.playsInline = true;
-  video.src = isPhone()
-    ? "https://videos.pexels.com/video-files/2169880/2169880-hd_1280_720_30fps.mp4"
-    : "https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4";
-  video.addEventListener("playing", () => video.classList.add("is-on"));
-  video.addEventListener("error", () => video.classList.remove("is-on"));
-  const play = video.play();
-  if (play && typeof play.catch === "function") play.catch(() => {});
-}
+video.src = isPhone()
+  ? "https://videos.pexels.com/video-files/2169880/2169880-hd_1280_720_30fps.mp4"
+  : "https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4";
+video.addEventListener("playing", () => video.classList.add("is-on"));
+video.addEventListener("error", () => video.classList.remove("is-on"));
+video.play()?.catch(() => {});
