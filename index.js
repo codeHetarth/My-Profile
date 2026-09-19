@@ -187,7 +187,10 @@ function syncNav() {
   });
   eduDetail.style.pointerEvents = sideOpen === "edu" ? "auto" : "none";
   projectDetail.style.pointerEvents = sideOpen === "project" ? "auto" : "none";
-  eduBack.classList.toggle("is-visible", Boolean(sideOpen));
+  eduBack.classList.toggle(
+    "is-visible",
+    Boolean(sideOpen) && !scene.classList.contains("is-turning")
+  );
   writeHash();
 }
 

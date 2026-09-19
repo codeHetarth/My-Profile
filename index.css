@@ -160,7 +160,6 @@ nav button.is-active::before {
   inset: 0;
   background: linear-gradient(180deg, rgba(7, 16, 24, 0.22), rgba(7, 16, 24, 0.58));
   backface-visibility: hidden;
-  overflow: hidden;
   border: 1px solid rgba(244, 239, 230, 0.04);
 }
 
@@ -340,11 +339,13 @@ p {
   color: var(--muted);
   opacity: 0;
   pointer-events: none;
+  transition: opacity 280ms ease;
 }
 
 .edu-back.is-visible {
   opacity: 1;
   pointer-events: auto;
+  transition-delay: 0.8s;
 }
 
 .edu-back:hover { color: var(--fg); }
@@ -576,6 +577,6 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cube, .cube-x, .cube-rig { transition: none; }
+  .cube, .cube-x, .cube-rig, .edu-back { transition: none; }
   .scene.is-turning .cube-rig { transform: translateZ(calc(var(--z) * -1)); }
 }
