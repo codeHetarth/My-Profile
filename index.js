@@ -21,6 +21,10 @@ let sideOpen = null;
 let busy = false;
 let unlockTimer = 0;
 let pendingGo = null;
+let turnSeq = 0;
+let unlockedSeq = -1;
+let lastRx = rx;
+let lastRy = ry;
 
 function isPhone() {
   return phoneMq.matches;
@@ -105,9 +109,21 @@ function snapToHash() {
   syncNav();
 }
 
-function unlock() {
-  scene.classList.remove("is-turning");
-  if (!sideOpen) cube.classList.remove("is-showing-project");
+function closingSide() {
+  return (
+    !sideOpen &&
+    (scene.classList.contains("is-edu-open") || scene.classList.contains("is-project-open"))
+  );
+}
+
+function snapClosedSide() {
+  pauseCubeMotion(() => {
+    scene.classList.remove("is-edu-open", "is-project-open");
+    cube.classList.remove("is-showing-project");
+  });
+}
+
+function finishUnlock() {
   syncNav();
   busy = false;
   if (pendingGo !== null) {
@@ -115,6 +131,41 @@ function unlock() {
     pendingGo = null;
     goTo(next);
   }
+}
+
+function unlock(seq = turnSeq) {
+  if (seq !== turnSeq || seq === unlockedSeq) return;
+  if (scene.dataset.settling === "1") return;
+
+  if (closingSide() && pendingGo !== null) {
+    unlockedSeq = seq;
+    const next = pendingGo;
+    pendingGo = null;
+    pauseCubeMotion(() => {
+      scene.classList.remove("is-edu-open", "is-project-open");
+      cube.classList.remove("is-showing-project");
+    });
+    busy = false;
+    goTo(next);
+    return;
+  }
+
+  if (closingSide()) {
+    unlockedSeq = seq;
+    scene.classList.remove("is-turning");
+    scene.dataset.settling = "1";
+    window.clearTimeout(unlockTimer);
+    unlockTimer = window.setTimeout(() => {
+      delete scene.dataset.settling;
+      snapClosedSide();
+      finishUnlock();
+    }, DURATION);
+    return;
+  }
+
+  unlockedSeq = seq;
+  scene.classList.remove("is-turning");
+  finishUnlock();
 }
 
 function currentFace() {
@@ -157,11 +208,19 @@ function turnCube() {
     return;
   }
 
+  const yChanged = ry !== lastRy;
+  const xChanged = rx !== lastRx;
+  lastRy = ry;
+  lastRx = rx;
+
   busy = true;
   scene.classList.add("is-turning");
   syncNav();
   window.clearTimeout(unlockTimer);
-  unlockTimer = window.setTimeout(unlock, DURATION);
+  const seq = ++turnSeq;
+  cube._yTurn = yChanged;
+  cubeX._xTurn = xChanged;
+  unlockTimer = window.setTimeout(() => unlock(seq), DURATION);
 }
 
 function pauseCubeMotion(fn) {
@@ -184,6 +243,10 @@ function showSide(side, id, requiredIndex) {
     syncNav();
     return;
   }
+  const targetRy = ry;
+  ry = 0;
+  pauseCubeMotion(applyCube);
+  ry = targetRy;
   turnCube();
 }
 
@@ -191,8 +254,8 @@ function closeSide() {
   if (!sideOpen) return;
   sideOpen = null;
   ry = 0;
-  scene.classList.remove("is-edu-open", "is-project-open");
   if (isPhone()) {
+    scene.classList.remove("is-edu-open", "is-project-open");
     cube.classList.remove("is-showing-project");
     resetFaceScroll();
     syncNav();
@@ -238,6 +301,8 @@ if (typeof phoneMq.addEventListener === "function") {
 }
 setHalf();
 pauseCubeMotion(snapToHash);
+lastRx = rx;
+lastRy = ry;
 
 window.addEventListener("resize", () => {
   syncPhone();
@@ -255,12 +320,12 @@ document.querySelectorAll("[data-project]").forEach((btn) => {
 eduBack.addEventListener("click", closeSide);
 
 cube.addEventListener("transitionend", (event) => {
-  if (event.propertyName !== "transform" || event.target !== cube) return;
-  unlock();
+  if (event.propertyName !== "transform" || event.target !== cube || !cube._yTurn) return;
+  unlock(turnSeq);
 });
 cubeX.addEventListener("transitionend", (event) => {
-  if (event.propertyName !== "transform" || event.target !== cubeX) return;
-  unlock();
+  if (event.propertyName !== "transform" || event.target !== cubeX || !cubeX._xTurn) return;
+  unlock(turnSeq);
 });
 
 if (video) {
