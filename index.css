@@ -123,7 +123,10 @@ nav button.is-active::before {
   overflow: hidden;
 }
 
+.scene.is-edu-hub,
+.scene.is-certi-hub,
 .scene.is-edu-open,
+.scene.is-certi-open,
 .scene.is-project-open {
   --z: var(--half-w);
 }
@@ -178,22 +181,51 @@ nav button.is-active::before {
 }
 .face-projects { transform: rotateX(180deg) translateZ(var(--z)); }
 .face-about { transform: rotateX(90deg) translateZ(var(--z)); }
-.face-edu { transform: rotateY(90deg) translateZ(var(--half-w)); }
+.face-edu-hub,
+.face-certi-hub { transform: rotateY(90deg) translateZ(var(--half-w)); }
+.face-certi-hub { visibility: hidden; }
+.face-edu,
+.face-certi {
+  transform: rotateY(180deg) translateZ(var(--half-w));
+  visibility: hidden;
+}
 .face-project {
   transform: rotateY(-90deg) rotateX(180deg) translateZ(var(--half-w));
   visibility: hidden;
 }
 .cube.is-showing-project .face-project { visibility: visible; }
-.cube.is-showing-project .face-edu { visibility: hidden; }
+.scene.is-edu-open .face-edu { visibility: visible; }
+.scene.is-certi-open .face-certi { visibility: visible; }
+.scene.is-certi-hub .face-certi-hub { visibility: visible; }
+.scene.is-certi-hub .face-edu-hub { visibility: hidden; }
+.cube.is-showing-project .face-edu-hub,
+.cube.is-showing-project .face-certi-hub,
+.cube.is-showing-project .face-edu,
+.cube.is-showing-project .face-certi { visibility: hidden; }
 
+.scene.is-edu-hub .face-home,
+.scene.is-edu-hub .face-projects,
+.scene.is-edu-hub .face-about,
+.scene.is-edu-hub .face-project,
+.scene.is-certi-hub .face-home,
+.scene.is-certi-hub .face-projects,
+.scene.is-certi-hub .face-about,
+.scene.is-certi-hub .face-project,
 .scene.is-edu-open .face-home,
 .scene.is-edu-open .face-projects,
 .scene.is-edu-open .face-about,
 .scene.is-edu-open .face-project,
+.scene.is-certi-open .face-home,
+.scene.is-certi-open .face-projects,
+.scene.is-certi-open .face-about,
+.scene.is-certi-open .face-project,
 .scene.is-project-open .face-home,
 .scene.is-project-open .face-background,
 .scene.is-project-open .face-about,
-.scene.is-project-open .face-edu {
+.scene.is-project-open .face-edu,
+.scene.is-project-open .face-certi,
+.scene.is-project-open .face-edu-hub,
+.scene.is-project-open .face-certi-hub {
   visibility: hidden;
 }
 
@@ -209,7 +241,10 @@ html.is-phone .face {
   backface-visibility: visible;
 }
 
-html.is-phone .face {
+html.is-phone .face,
+html.is-phone .face-edu,
+html.is-phone .face-certi,
+html.is-phone .face-certi-hub {
   visibility: hidden;
   pointer-events: none;
 }
@@ -223,6 +258,10 @@ html.is-phone .face.is-current .face-scroll {
   position: fixed;
   inset: 0;
   z-index: 2;
+}
+
+.gap {
+  padding: 30px;
 }
 
 .kicker {
@@ -304,12 +343,14 @@ p {
 }
 
 .edu p + p,
-.edu p + .more { margin-top: 4px; }
+.edu p + .more,
+.edu h3 + .more { margin-top: 4px; }
+.edu ul + .more { margin-top: 18px; }
 
 .more {
   display: block;
   margin-top: 4px;
-  padding: 0;
+  padding:0px;
   border: 0;
   background: none;
   font: inherit;
@@ -347,12 +388,17 @@ p {
 
 .edu-back:hover { color: var(--fg); }
 
+.face-edu-hub .face-scroll,
+.face-certi-hub .face-scroll,
 .face-edu .face-scroll,
+.face-certi .face-scroll,
 .face-project .face-scroll { padding-top: 108px; }
 
 .edu-panel,
+.certi-panel,
 .project-panel { display: none; }
 .edu-panel.is-active,
+.certi-panel.is-active,
 .project-panel.is-active { display: block; }
 
 .quote {
@@ -448,7 +494,10 @@ p {
   nav { gap: 16px; }
   nav button { font-size: 10px; letter-spacing: 0.12em; padding-left: 12px; }
   .face-scroll { padding: 36px 22px 36px calc(var(--nav-w) + 12px); }
+  .face-edu-hub .face-scroll,
+  .face-certi-hub .face-scroll,
   .face-edu .face-scroll,
+  .face-certi .face-scroll,
   .face-project .face-scroll { padding-top: 72px; }
   .edu-back { top: 36px; left: calc(var(--nav-w) + 12px); }
   .about-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -510,7 +559,10 @@ p {
     padding: calc(64px + env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom));
   }
 
+  .face-edu-hub .face-scroll,
+  .face-certi-hub .face-scroll,
   .face-edu .face-scroll,
+  .face-certi .face-scroll,
   .face-project .face-scroll {
     padding-top: calc(104px + env(safe-area-inset-top));
   }

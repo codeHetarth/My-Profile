@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&family=Syne:wght@800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="index.css?v=20260919aa" />
+  <link rel="stylesheet" href="index.css?v=20260920g" />
 </head>
 <body>
   <div class="world" aria-hidden="true">
@@ -44,6 +44,21 @@
             <h2>A little context.</h2>
             <section class="edu">
               <h3>Education</h3>
+              <button type="button" class="more" data-edu-hub>Read More →</button>
+            </section>
+            <section class="gap"></section>
+            <section class="edu">
+              <h3>Certifications</h3>
+              <button type="button" class="more" data-certi-hub>Read More →</button>
+            </section>
+          </div>
+        </section>
+
+        <section class="face face-edu-hub" id="edu-hub" aria-label="Education">
+          <div class="face-scroll">
+            <p class="kicker">Education / 2026</p>
+            <h2>Education</h2>
+            <section class="edu">
               <ul>
                 <li>
                   <h4>B.Sc. in Computer Science</h4>
@@ -56,6 +71,27 @@
                   <p>IU International University of Applied Sciences</p>
                   <p>April 2024 - March 2025</p>
                   <button type="button" class="more" data-edu="b2">Read More →</button>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </section>
+
+        <section class="face face-certi-hub" id="certi-hub" aria-label="Certifications">
+          <div class="face-scroll">
+            <p class="kicker">Certifications / 2026</p>
+            <h2>Certifications</h2>
+            <section class="edu">
+              <ul>
+                <li>
+                  <h4>Project Management</h4>
+                  <p>Linkedin and Microsoft</p>
+                  <button type="button" class="more" data-certi="c1">Read More →</button>
+                </li>
+                <li>
+                  <h4>Technical</h4>
+                  <p>Linkedin and Oracle</p>
+                  <button type="button" class="more" data-certi="c2">Read More →</button>
                 </li>
               </ul>
             </section>
@@ -122,6 +158,35 @@
                 <div class="meta-list">
                   <div><b>School</b><span>IU International University</span></div>
                   <div><b>When</b><span>Apr 2024 — Mar 2025</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="face face-certi" id="certi-detail" aria-label="Certification detail">
+          <div class="face-scroll">
+            <article class="certi-panel is-active" data-certi-panel="c1">
+              <p class="kicker">Certifications / Project Management</p>
+              <h3>Project Management.</h3>
+              <div class="about-grid">
+                <div>
+                  <p>Project management coursework from LinkedIn and Microsoft.</p>
+                </div>
+                <div class="meta-list">
+                  <div><b>Issuer</b><span>LinkedIn · Microsoft</span></div>
+                </div>
+              </div>
+            </article>
+            <article class="certi-panel" data-certi-panel="c2">
+              <p class="kicker">Certifications / Technical</p>
+              <h3>Technical.</h3>
+              <div class="about-grid">
+                <div>
+                  <p>Technical coursework from LinkedIn and Oracle.</p>
+                </div>
+                <div class="meta-list">
+                  <div><b>Issuer</b><span>LinkedIn · Oracle</span></div>
                 </div>
               </div>
             </article>
@@ -255,6 +320,6 @@
     </div>
   </div>
 
-  <script src="index.js?v=20260919aa"></script>
+  <script src="index.js?v=20260920g"></script>
 </body>
 </html>
