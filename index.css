@@ -388,6 +388,13 @@ p {
 
 .edu-back:hover { color: var(--fg); }
 
+.face-certi-hub ul {
+  list-style: none;
+  display: inline-flex;
+  flex-direction: column;
+  margin-right: 60px;
+}
+
 .face-edu-hub .face-scroll,
 .face-certi-hub .face-scroll,
 .face-edu .face-scroll,
