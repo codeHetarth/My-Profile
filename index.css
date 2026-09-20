@@ -254,6 +254,14 @@ html.is-phone .face.is-current {
   pointer-events: auto;
 }
 
+html.is-phone .scene.is-edu-hub .face-edu-hub:not(.is-current),
+html.is-phone .scene.is-certi-hub .face-certi-hub:not(.is-current),
+html.is-phone .scene.is-edu-open .face-edu:not(.is-current),
+html.is-phone .scene.is-certi-open .face-certi:not(.is-current) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 html.is-phone .face.is-current .face-scroll {
   position: fixed;
   inset: 0;
@@ -516,6 +524,16 @@ p {
   .face-project .face-scroll { padding-top: 72px; }
   .edu-back { top: 36px; left: calc(var(--nav-w) + 12px); }
   .about-grid { grid-template-columns: 1fr; gap: 28px; }
+  .face-certi-hub ul {
+    display: flex;
+    margin-right: 0;
+    width: 100%;
+  }
+  .certi-list div {
+    display: flex;
+    margin: 0 0 20px;
+    width: 100%;
+  }
   .work-grid { gap: 28px; }
   h1 {
     font-size: clamp(42px, 11vw, 56px);
@@ -616,6 +634,8 @@ p {
   .edu h3 { font-size: 22px; }
   .edu h4 { font-size: 20px; }
   .edu ul { padding: 8px 0; gap: 22px; }
+  .face-certi-hub ul { padding: 8px 0; }
+  .certi-list div { margin-bottom: 8px; }
 
   .project {
     min-height: 0;
