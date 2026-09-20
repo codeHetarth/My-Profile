@@ -395,6 +395,14 @@ p {
   margin-right: 60px;
 }
 
+.certi-list div {
+  list-style: none;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 30px;
+  width: 42%;
+}
+
 .face-edu-hub .face-scroll,
 .face-certi-hub .face-scroll,
 .face-edu .face-scroll,
