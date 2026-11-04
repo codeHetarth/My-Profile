@@ -1,3 +1,10 @@
+if (window.top !== window.self) {
+  document.documentElement.hidden = true;
+  try {
+    window.top.location.replace(window.location.href);
+  } catch {}
+}
+
 const FACES = ["background", "home", "projects", "about"];
 const scene = document.getElementById("scene");
 const cubeX = document.getElementById("cube-x");
