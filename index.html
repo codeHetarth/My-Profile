@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta
     http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; object-src 'none'; base-uri 'self'"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; media-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"
   />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Hetarth Modi - Portfolio</title>
   <link rel="icon" href="index_Logo.png" type="image/png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&family=Syne:wght@800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="index.css?v=20261104c" />
+  <link rel="preload" href="fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="index.css?v=20261104d" />
 </head>
 <body>
   <div class="world" aria-hidden="true">
@@ -380,6 +379,6 @@
     </div>
   </div>
 
-  <script src="index.js?v=20261104c"></script>
+  <script src="index.js?v=20261104d"></script>
 </body>
 </html>
