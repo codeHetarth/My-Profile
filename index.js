@@ -18,7 +18,6 @@ const phoneMq = window.matchMedia("(max-width: 860px), (pointer: coarse)");
 const DURATION = 1100;
 const START = 1;
 const SIDE_CLASSES = ["is-edu-hub", "is-certi-hub", "is-edu-open", "is-certi-open", "is-project-open"];
-
 let index = START;
 let rx = START * 90;
 let ry = 0;
@@ -404,9 +403,9 @@ cubeX.addEventListener("transitionend", (event) => {
   unlock(turnSeq);
 });
 
-video.src = isPhone()
-  ? "https://videos.pexels.com/video-files/2169880/2169880-hd_1280_720_30fps.mp4"
-  : "https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4";
-video.addEventListener("playing", () => video.classList.add("is-on"));
-video.addEventListener("error", () => video.classList.remove("is-on"));
-video.play()?.catch(() => {});
+if (!reduced) {
+  video.src = isPhone() ? "sakura/sakura-540.mp4" : "sakura/sakura-1080.mp4";
+  video.addEventListener("playing", () => video.classList.add("is-on"));
+  video.addEventListener("error", () => video.classList.remove("is-on"));
+  video.play()?.catch(() => {});
+}

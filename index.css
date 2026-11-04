@@ -38,33 +38,29 @@ button { font-family: inherit; color: inherit; }
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: #071018;
+  background: #6f9fd8;
 }
 
 .world-still,
-.world-video,
-.world-video video {
+.world-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 70% 50%;
   display: block;
 }
 
-.world-video video {
-  height: 120%;
-  visibility: hidden;
-}
-
-.world-video video.is-on { visibility: visible; }
+.world-video { opacity: 0; transition: opacity 600ms ease; }
+.world-video.is-on { opacity: 1; }
 
 .world-shade {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4), transparent),
-    linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent, rgba(0, 0, 0, 0.3));
+    linear-gradient(to right, rgba(7, 16, 24, 0.7), rgba(7, 16, 24, 0.35) 50%, rgba(7, 16, 24, 0.05)),
+    linear-gradient(to top, rgba(7, 16, 24, 0.45), transparent 45%, transparent 80%, rgba(7, 16, 24, 0.25));
 }
 
 header {
@@ -172,6 +168,7 @@ nav button.is-active::before {
   overscroll-behavior: contain;
   touch-action: pan-y;
   padding: 64px 8vw 64px calc(var(--nav-w) + 28px);
+  text-shadow: 0 1px 14px rgba(7, 16, 24, 0.55);
 }
 
 .face-background { transform: rotateX(0deg) translateZ(var(--z)); }
@@ -661,5 +658,6 @@ p {
 
 @media (prefers-reduced-motion: reduce) {
   .cube, .cube-x, .cube-rig, .edu-back { transition: none; }
+  .world-video { display: none; }
   .scene.is-turning .cube-rig { transform: translateZ(calc(var(--z) * -1)); }
 }
