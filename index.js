@@ -1,5 +1,6 @@
-if (window.top !== window.self) {
-  document.documentElement.hidden = true;
+if (window.top === window.self) {
+  document.documentElement.classList.add("is-unframed");
+} else {
   try {
     window.top.location.replace(window.location.href);
   } catch {}

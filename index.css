@@ -63,6 +63,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Revealed by index.js only when not inside a frame (clickjacking guard). */
+html:not(.is-unframed) body { display: none; }
+
 button { font-family: inherit; color: inherit; }
 
 .world {
