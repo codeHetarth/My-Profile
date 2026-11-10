@@ -676,6 +676,11 @@ p {
     margin: 0px 20px;
   }
 
+  .about-grid .repo-line .text-link {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   
 }
 
