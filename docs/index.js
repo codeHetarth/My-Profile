@@ -412,7 +412,7 @@ cubeX.addEventListener("transitionend", (event) => {
 });
 
 if (!reduced) {
-  video.src = isPhone() ? "../sakura/sakura-540.mp4" : "../sakura/sakura-1080.mp4";
+  video.src = isPhone() ? "sakura/sakura-540.mp4" : "sakura/sakura-1080.mp4";
   video.addEventListener("playing", () => video.classList.add("is-on"));
   video.addEventListener("error", () => video.classList.remove("is-on"));
   video.play()?.catch(() => {});
