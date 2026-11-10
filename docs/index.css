@@ -544,7 +544,7 @@ p {
   margin-top: 28px;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1024px) {
   :root { --nav-w: 96px; }
   header { padding: 24px 12px; }
   nav { gap: 16px; }
@@ -568,13 +568,115 @@ p {
     width: 100%;
   }
   .work-grid { gap: 28px; }
-  h1 {
-    font-size: clamp(42px, 11vw, 56px);
-    line-height: 0.95;
-    letter-spacing: -0.05em;
-    max-width: none;
+
+  .kicker {
+    font-size: 12px;
+    margin: 30px 20px;
   }
-  .face-home .h1-rest { display: block; }
+
+  .face-scroll h3 {
+    font-size: 28px;
+    margin: 0px 20px;
+  }
+
+  .more {
+    margin: 24px 20px;
+  }
+
+  .face-scroll h2 {
+    font-size: 48px;
+    margin: 24px 20px;
+  }
+
+  .edu ul {
+    padding: 0px 20px;
+  }
+
+  .edu li h4 {
+    font-size: 22px;
+  }
+
+  .edu li p {
+    font-size: 16px;
+  }
+
+  .edu li .more {
+    font-size: 16px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .about-grid p {
+    font-size: 16px;
+    margin: 12px 20px;
+  }
+
+  .subject-list,
+  .skills {
+    margin: 0px 20px;
+  }
+
+  .subject-list div,
+  .skills i {
+    font-size: 14px;
+    margin: 0px 0px;
+  }
+
+  .certi-list {
+    margin: 20px 20px;
+  }
+
+  .certi-list p {
+    font-size: 14px;
+    margin: 6px 0px;
+  }
+
+  h1 {
+    display: block;
+    font-size: 100px;
+    line-height: 1.5;
+    margin: 20px 20px;
+  }
+
+  .lede {
+    font-size: 24px;
+    margin: 12px 20px;
+  }
+
+  .work-grid {
+    margin: 20px 20px;
+  }
+
+  .project {
+    padding: 16px;
+  }
+
+  .project .num {
+    font-size: 10px;
+  }
+
+  .project h3 {
+    font-size: 24px;
+    margin: 6px 0px;
+  }
+
+  .project p,
+  .project .tags {
+    font-size: 16px;
+    margin: 6px 0px;
+  }
+
+  .project .more {
+    font-size: 16px;
+    margin: 6px 0px;
+  }
+  
+  .repo-line .text-link {
+    font-size: 18px;
+    margin: 0px 20px;
+  }
+
+  
 }
 
 @media (max-width: 720px) {
